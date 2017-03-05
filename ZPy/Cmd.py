@@ -27,6 +27,10 @@ class Cmd(cmd.Cmd):
     def do_EOF(self, line):
         print("Bye bye!")
         exit(0)
+
+    def do_help(self, arg):
+        readme_location = os.path.join(os.path.dirname(os.path.dirname(__file__)), "README.md")
+        print(  open(readme_location).read())
     def cmdloop(self, intro=None):
 
         while True:
@@ -42,8 +46,6 @@ class Cmd(cmd.Cmd):
     def completedefault(text, line, begidx, endidx):
         print('complete')
         return []
-    def do_fuck(self):
-        pass
 
 
 
