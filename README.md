@@ -39,9 +39,23 @@ We have access to z-variable as `z`.
 * Python 3
 * pip3
 #### Install
+Install via pip
+```
+pip3 install zpyshell
+```
+Install from github sources:
 ```
 git clone git@github.com:albertaleksieiev/zpy.git
 cd zpy;pip3 install -r requirements.txt
+```
+#### Run
+If you install zpy via pip just run in terminal
+```
+$ zpy
+```
+But if you install from sources, navigate to repository root folder and run it like python script
+```
+python3 ZPy/main.py   
 ```
 #### Test
 ```
@@ -65,7 +79,7 @@ Show random Image from your Pictures folder.
 ['adduser', 'arch', 'awk', 'bc', 'cal', 'cat', 'chdir', 'chgrp', 'chkconfig', 'chmod', 'chown', 'chroot', 'cksum', 'clear', 'cmp', 'comm', 'cp', 'cron', 'crontab', 'csplit', 'cut', 'date', 'dc', 'dd', 'df', 'diff', 'diff3', 'dir', 'dircolors', 'dirname', 'du', 'echo', 'ed', 'egrep', 'eject', 'env', 'expand', 'expr', 'factor', 'FALSE', 'fdformat', 'fdisk', 'fgrep', 'find', 'fmt', 'fold', 'format', 'free', 'fsck', 'gawk', 'grep', 'groups', 'gzip', 'head', 'hostname', 'id', 'info', 'install', 'join', 'kill', 'less', 'ln', 'locate', 'logname', 'lpc', 'lpr', 'lprm', 'ls', 'man', 'mkdir', 'mkfifo', 'mknod', 'more', 'mount', 'mv', 'nice', 'nl', 'nohup', 'passwd', 'paste', 'pathchk', 'pr', 'printcap', 'printenv', 'printf', 'ps', 'pwd', 'quota', 'quotacheck', 'quotactl', 'ram', 'rcp', 'rm', 'rmdir', 'rpm', 'rsync', 'screen', 'sdiff', 'sed', 'select', 'seq', 'shutdown', 'sleep', 'sort', 'split', 'su', 'sum', 'symlink', 'sync', 'tac', 'tail', 'tar', 'tee', 'test', 'time', 'touch', 'top', 'traceroute', 'tr', 'TRUE', 'tsort', 'tty', 'umount', 'uname', 'unexpand', 'uniq', 'units', 'unshar', 'useradd', 'usermod', 'users', 'uuencode', 'uudecode', 'vdir', 'watch', 'wc', 'whereis', 'which', 'who', 'whoami', 'xargs', 'yes']
  ```
 Print all linux commands defined in zpy.
-##### Default imports
+#### Default imports
 If you don't want import general modules like `os` every time when you launch zpy, you can use **default imports**
 You just need execute zpy method `add_def_imports`.
 ```
@@ -82,7 +96,7 @@ Done! When you launch Zpy, this modules will be imported automatically. Let's tr
 ```
 **Note** Here we use np.std without input arguments, Zpy will pass z-value as 1 argument to function and evaluate it.
 Function will be evaluated with z parameter as argument by default, if return type of evaluation is function. 
-##### Modules
+#### Modules
 Zpy have some cool things, like modules! Modules is your own script which will be imported by default. Zpy have own zpy module.
 ```
 (Zpy) zpy
