@@ -14,18 +14,14 @@ class Cmd(cmd.Cmd):
 
     def init_history(self):
         histfile = os.path.join(os.getcwd(), ".python_history")
-        """
-        if not os.path.exists(histfile):
-            with open(histfile,'w'):
-                pass
-        """
-
-        # try:
-        #     readline.read_history_file(histfile)
-        #     readline.set_history_length(1000)
-        # except FileNotFoundError:
-        #     pass
-        # atexit.register(readline.write_history_file, histfile)
+        try:
+            readline.read_history_file(histfile)
+            readline.set_history_length(1000)
+            readline.write_history_file(histfile)
+        except FileNotFoundError:
+            readline.write_history_file(histfile)
+            pass
+        atexit.register(readline.write_history_file, histfile)
     def default(self, line):
         self.processor.forward(line)
     def do_EOF(self, line):

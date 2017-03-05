@@ -57,7 +57,7 @@ class Processor():
             except SyntaxError as e:
                 print("Cannot evaluate line `%s`" % command.strip())
                 print(e)
-        if (isinstance(stdin, str) and stdin == ""):
+        if (isinstance(stdin, str) and stdin == "") or stdin is None:
             pass
         else:
             if isinstance(stdin,str):

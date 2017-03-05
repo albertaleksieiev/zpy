@@ -1,4 +1,9 @@
 import unittest
+
+import sys, os
+# Setup working dir
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+
 import doctest
 import ZPy.Pipeline, ZPy.Utils, ZPy.Processor
 import ZPy.languages.LanguageAnalyzer, ZPy.languages.python.python_lang, ZPy.languages.shell.unix_lang
@@ -15,4 +20,4 @@ def load_tests(loader, tests, ignore):
 
     return tests
 
-#unittest.main()
+unittest.main()

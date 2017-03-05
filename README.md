@@ -8,6 +8,7 @@ Current folder /Users/XXXX/pytho-nal
 ```
 ### Pipeline
 Zpy ideology says - pipeline make work in terminal great again! Pipeline play the major role in zpy. If you want to use every opportunity of Zpy you should know a few things about the pipeline. Input command will be splited by pipeline character, each of token will be evaluated by shell or python interpreter, and tokens will be chained into 1 chain. Zpy pass previous token evaluation result as stdin to next token and you have access to z-variable if token not expects to stdin. So Zpy pipes work like standard unix pipes.
+
 #### Syntax
 If you want use Zpy you should a few rules.
  * Command will be evaluated by **unix system** if you add **`** symbol in begin of the token, or you command begin with [142 linux commands](http://www.mediacollege.com/linux/command/linux-command.html)
@@ -34,7 +35,18 @@ Generate "index.php" as z-value, and send it to next pipe. Last pipe will be eva
 ```
 Get current files, convert it into array and filter it by some condition
 We have access to z-variable as `z`.
-
+#### Requirements
+* Python 3
+* pip3
+#### Install
+```
+git clone git@github.com:albertaleksieiev/zpy.git
+cd zpy;pip3 install -r requirements.txt
+```
+#### Test
+```
+python3 tests/main_test.py
+```
 
 #### Python Imports
 If you wan't import some modules into zpy, just add `~` in the begging and type your import command.
@@ -88,6 +100,7 @@ zpy Methods :
 - add_module(module_name, path_to_module_file_py) - add module, it will be available from zpy like `module_name`
 - get_modules() - returns all modules
 - remove_module(name) - remove module by name, **file will not be deleted**
+- as_table(data) - trying to convert string to table data
 ```
 (Zpy) zpy.get_scripts()
 (Zpy) zpy.add_new_script("ls", "ls -lah")
@@ -203,6 +216,23 @@ Universal function power is done! Let's test it
 Files divided by commma .idea,__pycache__,a.txt,index.py,linux-command-to-list-all-available-commands-and-aliases,README.md,ZPy
 ```
 Get current directory using shell command, pipe into python code as z-variable and print result of last chain
+```
+(Zpy) ~from terminaltables import AsciiTable, SingleTable
+(Zpy) ls -lah | z.split('\n') | [' '.join(x.split()).split(' ') for x in z] | SingleTable(z).table
+┌────────────┬────┬────────┬───────┬──────┬─────┬───┬───────┬────────────────┐
+│ total      │ 8  │        │       │      │     │   │       │                │
+├────────────┼────┼────────┼───────┼──────┼─────┼───┼───────┼────────────────┤
+│ drwxr-xr-x │ 4  │ albert │ staff │ 136B │ Mar │ 4 │ 23:32 │ .              │
+│ drwxr-xr-x │ 10 │ albert │ staff │ 340B │ Mar │ 4 │ 23:34 │ ..             │
+│ -rw-r--r-- │ 1  │ albert │ staff │ 0B   │ Mar │ 4 │ 23:32 │ empty_file.txt │
+│ -rw-r--r-- │ 1  │ albert │ staff │ 9B   │ Mar │ 4 │ 23:32 │ not_empy.txt   │
+│            │    │        │       │      │     │   │       │                │
+└────────────┴────┴────────┴───────┴──────┴─────┴───┴───────┴────────────────┘
+```
+Convert ugly result after evaluation `ls -lah` to great table!
+**Note** This functionality available inside zpy module `ls -lah | zpy.as_table`
+
+
 ```
 (Zpy) `wget -qO- http://example.com | z.split(" ") | filter(lambda x : "head" in x,z) | list(z) 
 ['html>\n<html>\n<head>\n', '\n</head>\n\n<body>\n<div>\n']

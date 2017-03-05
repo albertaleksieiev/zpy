@@ -98,4 +98,4 @@ ENV/
 # OSX
 .DS_STORE
 
-#ZPy Conf
+.python_history

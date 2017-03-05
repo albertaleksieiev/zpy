@@ -33,7 +33,14 @@ class zpy():
         print(script[236:240])
         return self.add_to_section(self.SCRIPTS, name, value=script)
 
-
+    """
+        Utils
+    """
+    def as_table(self, line):
+        from terminaltables import AsciiTable, SingleTable
+        arr = line.split('\n')
+        prepared_arr = [' '.join(x.split()).split(' ') for x in arr]
+        return SingleTable(prepared_arr).table
 
     """
         Evaluation
@@ -126,3 +133,4 @@ class zpy():
         section_and_config['config'].remove_option(section, name)
         self.save_config(section_and_config['config'])
         return ""
+
