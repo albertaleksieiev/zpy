@@ -62,7 +62,8 @@ python3 Zpy/main.py
 ```
 python3 tests/main_test.py
 ```
-
+### More languages
+ Now Zpy supports only python, but in the first release, we will add new language!
 ### Python Imports
 If you wan't import some modules into zpy, just add `~` in the begging and type your import command.
 ```
