@@ -11,14 +11,19 @@ class Cmd(cmd.Cmd):
         self.prompt = '(Zpy) '
         self.processor = Processor()
         self.init_history()
-
+        self.init_env()
+    def init_env(self):
+        if 'libedit' in readline.__doc__:
+            readline.parse_and_bind("bind ^I rl_complete")
+        else:
+            readline.parse_and_bind("tab: complete")
     def init_history(self):
         histfile = os.path.join(os.getcwd(), ".python_history")
         try:
             readline.read_history_file(histfile)
             readline.set_history_length(1000)
             readline.write_history_file(histfile)
-        except FileNotFoundError:
+        except (FileNotFoundError, PermissionError):
             readline.write_history_file(histfile)
             pass
         atexit.register(readline.write_history_file, histfile)

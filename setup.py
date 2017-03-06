@@ -12,17 +12,18 @@ def read(fname):
 try:
     import pypandoc
     content = read('README.md')
-    long_description = pypandoc.convert(content, 'rst')
-except(IOError, ImportError,Exception):
+    long_description = pypandoc.convert(content, 'rst', format='md')
+except(IOError, ImportError) as e:
     long_description = read('README.md')
 
 setup(
   name = 'zpyshell',
   packages = find_packages(),
-  version = '0.1.0.5',
+  version = '0.1.0.6',
   description = 'Command line shell with script languages, like python',
-  long_description=read('README.md'),
+  long_description=long_description,
   author = 'Albert Aleksieiev',
+    include_package_data = True,
   author_email = 'albert.aleksieiev@gmail.com',
   url = 'https://albertaleksieiev.github.io/zpy/',
   download_url = 'https://github.com/albertaleksieiev/zpy/archive/0.1.tar.gz', # I'll explain this in a second
