@@ -1,5 +1,5 @@
-from ZPy.languages.python.python_lang import PythonLanguage
-from ZPy.languages.shell.unix_lang import UnixLang
+from Zpy.languages.python.python_lang import PythonLanguage
+from Zpy.languages.shell.unix_lang import UnixLang
 
 
 class LanguageAnalyzer():
@@ -11,7 +11,7 @@ class LanguageAnalyzer():
         :param command: some command
         :return: language which have this syntax
         >>> analize = LanguageAnalyzer().analize
-        >>> from ZPy.Utils import get_linux_commands
+        >>> from Zpy.Utils import get_linux_commands
         >>> unix_commands = get_linux_commands()
         >>> analize('pwd').__class__.__name__
         'UnixLang'

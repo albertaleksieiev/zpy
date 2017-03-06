@@ -1,4 +1,4 @@
-from ZPy.modules.zpy import zpy
+from Zpy.modules.zpy import zpy
 import importlib.util
 class ModuleManager():
     def __init__(self):

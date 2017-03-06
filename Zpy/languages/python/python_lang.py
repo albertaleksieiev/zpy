@@ -1,8 +1,8 @@
 import inspect
 
-from ZPy.languages.shell.unix_lang import UnixLang
-from ZPy.modules.module_manager import ModuleManager
-from ZPy.modules.zpy import zpy
+from Zpy.languages.shell.unix_lang import UnixLang
+from Zpy.modules.module_manager import ModuleManager
+from Zpy.modules.zpy import zpy
 
 
 class PythonLanguage():

@@ -3,7 +3,7 @@ import atexit
 import os
 import readline
 
-from ZPy.Processor import Processor
+from Zpy.Processor import Processor
 class Cmd(cmd.Cmd):
     def __init__(self):
         super(Cmd, self).__init__()

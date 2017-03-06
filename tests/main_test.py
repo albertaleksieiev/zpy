@@ -5,18 +5,18 @@ import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 import doctest
-import ZPy.Pipeline, ZPy.Utils, ZPy.Processor
-import ZPy.languages.LanguageAnalyzer, ZPy.languages.python.python_lang, ZPy.languages.shell.unix_lang
-import ZPy.storage.SuffixTree
+import Zpy.Pipeline, Zpy.Utils, Zpy.Processor
+import Zpy.languages.LanguageAnalyzer, Zpy.languages.python.python_lang, Zpy.languages.shell.unix_lang
+import Zpy.storage.SuffixTree
 def load_tests(loader, tests, ignore):
-    tests.addTests(doctest.DocTestSuite(ZPy.Pipeline))
-    tests.addTests(doctest.DocTestSuite(ZPy.Utils))
-    tests.addTests(doctest.DocTestSuite(ZPy.Processor))
-    tests.addTests(doctest.DocTestSuite(ZPy.Processor))
-    tests.addTests(doctest.DocTestSuite(ZPy.languages.LanguageAnalyzer))
-    tests.addTests(doctest.DocTestSuite(ZPy.languages.python.python_lang))
-    tests.addTests(doctest.DocTestSuite(ZPy.languages.shell.unix_lang))
-    tests.addTests(doctest.DocTestSuite(ZPy.storage.SuffixTree))
+    tests.addTests(doctest.DocTestSuite(Zpy.Pipeline))
+    tests.addTests(doctest.DocTestSuite(Zpy.Utils))
+    tests.addTests(doctest.DocTestSuite(Zpy.Processor))
+    tests.addTests(doctest.DocTestSuite(Zpy.Processor))
+    tests.addTests(doctest.DocTestSuite(Zpy.languages.LanguageAnalyzer))
+    tests.addTests(doctest.DocTestSuite(Zpy.languages.python.python_lang))
+    tests.addTests(doctest.DocTestSuite(Zpy.languages.shell.unix_lang))
+    tests.addTests(doctest.DocTestSuite(Zpy.storage.SuffixTree))
 
     return tests
 

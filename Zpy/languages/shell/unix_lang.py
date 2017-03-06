@@ -1,6 +1,6 @@
 import subprocess, os, re
-from ZPy.Utils import get_linux_commands
-from ZPy.storage.SuffixTree import SuffixTree
+from Zpy.Utils import get_linux_commands
+from Zpy.storage.SuffixTree import SuffixTree
 
 class WrondDstDirException(Exception): pass
 class UnixLang():

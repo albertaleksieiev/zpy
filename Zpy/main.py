@@ -1,4 +1,4 @@
-from ZPy.Cmd import Cmd
+from Zpy.Cmd import Cmd
 
 def main():
     Cmd().cmdloop()

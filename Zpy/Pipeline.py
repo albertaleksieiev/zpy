@@ -1,6 +1,6 @@
 import re
 
-from ZPy.Utils import findBeginAndEndIndexesOfRegex,match_inside_matches_array
+from Zpy.Utils import findBeginAndEndIndexesOfRegex,match_inside_matches_array
 
 class Pipeline:
 

@@ -1,7 +1,7 @@
-Zpy
+Zpy shell
 =================
-***Command line shell with script languages, like python***
-
+![ZpyContent](https://github.com/albertaleksieiev/zpy/raw/content/img/zpy_banner.jpg)
+**Next level command line shell with script languages, like python. Work in shell with your favorite language.**
 ```
 (Zpy) pwd | "Current folder %s" % z | cat -
 Current folder /Users/XXXX/pytho-nal
@@ -9,7 +9,7 @@ Current folder /Users/XXXX/pytho-nal
 ### Pipeline
 Zpy ideology says - pipeline make work in terminal great again! Pipeline play the major role in zpy. If you want to use every opportunity of Zpy you should know a few things about the pipeline. Input command will be splited by pipeline character, each of token will be evaluated by shell or python interpreter, and tokens will be chained into 1 chain. Zpy pass previous token evaluation result as stdin to next token and you have access to z-variable if token not expects to stdin. So Zpy pipes work like standard unix pipes.
 
-#### Syntax
+### Syntax
 If you want use Zpy you should a few rules.
  * Command will be evaluated by **unix system** if you add **`** symbol in begin of the token, or you command begin with [142 linux commands](http://www.mediacollege.com/linux/command/linux-command.html)
  * Command will be evaluated by **python** command **not unix command** (By default)
@@ -35,11 +35,11 @@ Generate "index.php" as z-value, and send it to next pipe. Last pipe will be eva
 ```
 Get current files, convert it into array and filter it by some condition
 We have access to z-variable as `z`.
-#### Requirements
+### Requirements
 * Python 3
 * pip3
 
-#### Install
+### Install
 Install via pip
 ```
 pip3 install zpyshell
@@ -49,21 +49,21 @@ Install from github sources:
 git clone git@github.com:albertaleksieiev/zpy.git
 cd zpy;pip3 install -r requirements.txt
 ```
-#### Run
+### Run
 If you install zpy via pip just run in terminal
 ```
 $ zpy
 ```
 But if you install from sources, navigate to repository root folder and run it like python script
 ```
-python3 ZPy/main.py   
+python3 Zpy/main.py   
 ```
-#### Test
+### Test
 ```
 python3 tests/main_test.py
 ```
 
-#### Python Imports
+### Python Imports
 If you wan't import some modules into zpy, just add `~` in the begging and type your import command.
 ```
 (Zpy) ~import random,os
@@ -75,8 +75,8 @@ Show random Image from your Pictures folder.
 ```
 (Zpy) ~import os
 (Zpy) pwd | os.listdir(z)
-['__pycache__', 'a.txt', 'index.py', 'linux-command-to-list-all-available-commands-and-aliases', 'README.md', 'ZPy']
-(Zpy) ~from ZPy.Utils import get_linux_commands
+['__pycache__', 'a.txt', 'index.py', 'linux-command-to-list-all-available-commands-and-aliases', 'README.md', 'Zpy']
+(Zpy) ~from Zpy.Utils import get_linux_commands
 ['adduser', 'arch', 'awk', 'bc', 'cal', 'cat', 'chdir', 'chgrp', 'chkconfig', 'chmod', 'chown', 'chroot', 'cksum', 'clear', 'cmp', 'comm', 'cp', 'cron', 'crontab', 'csplit', 'cut', 'date', 'dc', 'dd', 'df', 'diff', 'diff3', 'dir', 'dircolors', 'dirname', 'du', 'echo', 'ed', 'egrep', 'eject', 'env', 'expand', 'expr', 'factor', 'FALSE', 'fdformat', 'fdisk', 'fgrep', 'find', 'fmt', 'fold', 'format', 'free', 'fsck', 'gawk', 'grep', 'groups', 'gzip', 'head', 'hostname', 'id', 'info', 'install', 'join', 'kill', 'less', 'ln', 'locate', 'logname', 'lpc', 'lpr', 'lprm', 'ls', 'man', 'mkdir', 'mkfifo', 'mknod', 'more', 'mount', 'mv', 'nice', 'nl', 'nohup', 'passwd', 'paste', 'pathchk', 'pr', 'printcap', 'printenv', 'printf', 'ps', 'pwd', 'quota', 'quotacheck', 'quotactl', 'ram', 'rcp', 'rm', 'rmdir', 'rpm', 'rsync', 'screen', 'sdiff', 'sed', 'select', 'seq', 'shutdown', 'sleep', 'sort', 'split', 'su', 'sum', 'symlink', 'sync', 'tac', 'tail', 'tar', 'tee', 'test', 'time', 'touch', 'top', 'traceroute', 'tr', 'TRUE', 'tsort', 'tty', 'umount', 'uname', 'unexpand', 'uniq', 'units', 'unshar', 'useradd', 'usermod', 'users', 'uuencode', 'uudecode', 'vdir', 'watch', 'wc', 'whereis', 'which', 'who', 'whoami', 'xargs', 'yes']
  ```
 Print all linux commands defined in zpy.
@@ -101,7 +101,7 @@ Function will be evaluated with z parameter as argument by default, if return ty
 Zpy have some cool things, like modules! Modules is your own script which will be imported by default. Zpy have own zpy module.
 ```
 (Zpy) zpy
-<ZPy.languages.zpy.zpy object at 0x10268d2e8>
+<Zpy.languages.zpy.zpy object at 0x10268d2e8>
 ```
 zpy is just python class, which can storage some information (like scripts).
 zpy Methods : 
@@ -127,7 +127,7 @@ drwxr-xr-x   9 albert  staff   306B Feb 27 22:29 .
 drwxr-xr-x  33 albert  staff   1.1K Feb 24 22:47 ..
 drwxr-xr-x   8 albert  staff   272B Feb 27 22:36 .idea
 -rw-r--r--   1 albert  staff   6.1K Feb 27 22:13 README.md
-drwxr-xr-x   7 albert  staff   238B Feb 27 22:35 ZPy
+drwxr-xr-x   7 albert  staff   238B Feb 27 22:35 Zpy
 -rw-r--r--   1 albert  staff   685B Feb 27 22:25 index.py
 -rw-r--r--   1 albert  staff   182K Feb  1 20:00 linux-command-to-list-all-available-commands-and-aliases
 -rw-r--r--   1 albert  staff    36B Feb 27 15:47 random.file
@@ -224,11 +224,11 @@ Universal function power is done! Let's test it
 32.0
 ```
 
-# Examples
+### Examples
 ```
 (Zpy) ~import os
 (Zpy) pwd | os.listdir(z) | "Files divided by commma %s" % ",".join(z)
-Files divided by commma .idea,__pycache__,a.txt,index.py,linux-command-to-list-all-available-commands-and-aliases,README.md,ZPy
+Files divided by commma .idea,__pycache__,a.txt,index.py,linux-command-to-list-all-available-commands-and-aliases,README.md,Zpy
 ```
 Get current directory using shell command, pipe into python code as z-variable and print result of last chain
 ```
@@ -257,9 +257,9 @@ Total size : 2
 Download content from page and count current entrance word 'head'
 ```
 (Zpy) find ./ -name "*.py" | z.split("\n")[:2]
-['.//index.py', './/ZPy/languages/LanguageAnalyzer.py']
+['.//index.py', './/Zpy/languages/LanguageAnalyzer.py']
 (Zpy) find ./ -name "*.py" | z.split("\n")[:2] | "\n".join(z) |grep "an"
-.//ZPy/languages/LanguageAnalyzer.py
+.//Zppy/languages/LanguageAnalyzer.py
 ```
 First evaluation will find file in current directory and get first 2 results. Second evaluation do the same plus filter results by shell command `grep`
 ```
@@ -276,7 +276,7 @@ COUNT : 645
 
 ### **Danger tricks** (Do not evaluate)
 ```
-(Zpy) ~from ZPy.Utils import get_linux_commands
+(Zpy) ~from Zpy.Utils import get_linux_commands
 
 (Zpy) ~import random,os
 
@@ -292,3 +292,5 @@ Get all shell commands declared in Zpy, and execute random one
 0
 ```
 If you run on OSX, 33% nothing happens
+### License
+The module is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).

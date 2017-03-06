@@ -1,7 +1,7 @@
 import os,subprocess
 
-from ZPy.Pipeline import Pipeline
-from ZPy.languages.LanguageAnalyzer import LanguageAnalyzer
+from Zpy.Pipeline import Pipeline
+from Zpy.languages.LanguageAnalyzer import LanguageAnalyzer
 class Processor():
     def __init__(self):
         self.pipeline = Pipeline()

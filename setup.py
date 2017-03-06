@@ -24,7 +24,7 @@ setup(
   long_description=read('README.md'),
   author = 'Albert Aleksieiev',
   author_email = 'albert.aleksieiev@gmail.com',
-  url = 'https://github.com/albertaleksieiev/zpy',
+  url = 'https://albertaleksieiev.github.io/zpy/',
   download_url = 'https://github.com/albertaleksieiev/zpy/archive/0.1.tar.gz', # I'll explain this in a second
   keywords = ['python', 'command', 'line','shell','unix','terminal'], # arbitrary keywords
   classifiers = ['Topic :: Software Development :: Interpreters',
@@ -38,7 +38,7 @@ setup(
                  ],
     entry_points={
        'console_scripts': [
-           'zpy = ZPy.main:main',
+           'zpy = Zpy.main:main',
        ],
     }
 )
