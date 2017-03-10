@@ -3,3 +3,10 @@ http://stackoverflow.com/questions/11669379/undefined-global-in-list-generator-e
 4) Optimize performance
 2) Autocomplete(http://unix.stackexchange.com/questions/23900/how-to-pipe-the-list-of-commands-displayed-by-of-tab-complete)
 http://stackoverflow.com/questions/1943244/tab-completion-with-pythons-cmd-cmd - win
+
+AUTOCOMPLETE
+    ###bash -c "compgen -c"
+
+
+ADD WELCOME MESSAGE
+Like in torch

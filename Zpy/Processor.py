@@ -38,9 +38,11 @@ class Processor():
         >>> forward("cd %s" % tempdir.strip())
         >>> forward("pwd | True if len(os.listdir(z.strip())) > 0 else False ")
         True
-        >>> forward('"https://www.reddit.com/r/books/" | `wget -qO- $z |  re.findall(r"Book[^\.].*?",z,re.IGNORECASE) | True if len(z) > 0 else False')
-        True
         """
+        #>>> forward('"https://www.reddit.com/r/books/" | `wget -qO- $z |  re.findall(r"Book[^\.].*?",z,re.IGNORECASE) | True if len(z) > 0 else False')
+        #True
+
+
 
         if len(line) == 0:
             return

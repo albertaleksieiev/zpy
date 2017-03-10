@@ -5,10 +5,32 @@ from Zpy.languages.shell.unix_lang import UnixLang
 class LanguageAnalyzer():
     def __init__(self):
         self.languages = [UnixLang(), PythonLanguage()]
-    def analize(self, command):
+
+    def get_lang_for_complete_line(self, line):
         """
-        Analyze language
-        :param command: some command
+        Analyze current line and returns language which will complete this line
+        :param line: some command
+        :return: Language which will complete this line
+        >>> analize = LanguageAnalyzer().get_lang_for_complete_line
+        >>> analize('`git').__class__.__name__
+        'UnixLang'
+
+        """
+        line = line.strip()
+        selected_langs = list(filter(lambda lang: lang.isLangPrefix(line), self.languages))
+
+        if len(selected_langs) == 0:
+            raise Exception("Cannot find language for completion this line %s" % line)
+
+        if len(selected_langs) > 1:
+            raise Exception("Find more than one langs(%s) for comletion this line %s" % (selected_langs.join(","), line))
+
+        #print("FINDED LANG", selected_langs[0])
+        return selected_langs[0]
+    def analize(self, line):
+        """
+        Analyze current command and returns language
+        :param line: some command
         :return: language which have this syntax
         >>> analize = LanguageAnalyzer().analize
         >>> from Zpy.Utils import get_linux_commands
@@ -24,7 +46,7 @@ class LanguageAnalyzer():
         >>> analize('[i for i in range(11)').__class__.__name__
         'PythonLanguage'
         """
-        comm = command.strip()
+        comm = line.strip()
 
         selected_langs = list( filter(lambda lang : lang.isLang(comm), self.languages))
         if len(selected_langs) == 0:

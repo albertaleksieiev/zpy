@@ -1,17 +1,25 @@
 import cmd
 import atexit
-import os
+import subprocess
 import readline
+import os
 
 from Zpy.Processor import Processor
+from Zpy.Completer import Completer
+import sys
+
 class Cmd(cmd.Cmd):
     def __init__(self):
         super(Cmd, self).__init__()
-
         self.prompt = '(Zpy) '
+
         self.processor = Processor()
+        self.completer = Completer()
+
         self.init_history()
         self.init_env()
+
+
     def init_env(self):
         if 'libedit' in readline.__doc__:
             readline.parse_and_bind("bind ^I rl_complete")
@@ -31,7 +39,7 @@ class Cmd(cmd.Cmd):
         self.processor.forward(line)
     def do_EOF(self, line):
         print("Bye bye!")
-        exit(0)
+        sys.exit(0)
 
     def do_help(self, arg):
         readme_location = os.path.join(os.path.dirname(os.path.dirname(__file__)), "README.md")
@@ -48,9 +56,8 @@ class Cmd(cmd.Cmd):
             except Exception as ex:
                 print(ex)
 
-    def completedefault(text, line, begidx, endidx):
-        print('complete')
-        return []
+    def complete(self, text, index):
+        return self.completer.complete(text, index)
 
-
-
+if __name__ == "__main__":
+    Cmd().complete("ls",0)
