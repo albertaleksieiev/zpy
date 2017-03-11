@@ -1,3 +1,4 @@
+from prompt_toolkit.completion import Completion
 class Language:
 
     def isLang(self, line):
@@ -23,6 +24,7 @@ class Language:
         :param line: line for completion
         :return: generator of completions
         """
+        yield Completion('PLEASE IMPLEMENT COMPLETION')
 
     def evaluate(self, line):
         """
@@ -31,12 +33,3 @@ class Language:
         :return: object, or decoded string, this object will be sended to the next chain as stdin
         """
         return ""
-
-    def complete(self, text, state):
-        """
-        Trying complete this line
-        :param text: Text to complete
-        :param state:
-        :return: array with complete results
-        """
-        return []

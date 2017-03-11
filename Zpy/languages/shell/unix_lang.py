@@ -53,12 +53,9 @@ class UnixLang(Language):
         >>> completer = UnixLang()
         >>> "ls" in [i.text for i in list(completer.complete('l'))]
         True
-        >>> "-l" in [i.text for i in list(completer.complete('ls -l'))]
-        True
         """
-        return self.unix_completer.complete(self.prepare(line.strip()))
 
-
+        return self.unix_completer.complete(self.prepare(line))
 
     def prepare(self,line):
         """
@@ -78,6 +75,7 @@ class UnixLang(Language):
         if len(line) > 0 and line[0]=="`":
             return self.prepare(line[1:])
         return str(line)
+
     def set_directory(self, dir):
         """
         Change current directory

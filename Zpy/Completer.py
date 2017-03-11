@@ -1,7 +1,7 @@
 
 import subprocess
 from prompt_toolkit.completion import Completer
-
+from Zpy.Pipeline import  Pipeline
 
 class Completer(Completer):
     def __init__(self):
@@ -10,14 +10,23 @@ class Completer(Completer):
         self.token = ""
         self.completions = []
         self.lang_analyzer = LanguageAnalyzer()
+        self.pipeline = Pipeline()
         pass
 
 
     def get_completions(self, document, complete_event):
-        line = document.current_line.strip()
+
+        #Allow only tap completion
+        if not complete_event.completion_requested:
+            return ''
+        line = document.current_line
+
+        #Complete onl last pipeline
+        line = self.pipeline.split(line=line)[-1]
+
 
         lang = self.lang_analyzer.get_lang_for_complete_line(line)
-
+        #print('lan',lang)
         return lang.complete(line)
 
 # class Completer(object):

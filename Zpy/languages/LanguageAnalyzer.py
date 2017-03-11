@@ -6,17 +6,16 @@ class LanguageAnalyzer():
     def __init__(self):
         self.languages = [UnixLang(), PythonLanguage()]
 
-    def get_lang_for_complete_line(self, line):
+    def get_lang_for_complete_line(self, line_):
         """
         Analyze current line and returns language which will complete this line
-        :param line: some command
+        :param line_: some command
         :return: Language which will complete this line
         >>> analize = LanguageAnalyzer().get_lang_for_complete_line
         >>> analize('`git').__class__.__name__
         'UnixLang'
-
         """
-        line = line.strip()
+        line = line_.strip()
         selected_langs = list(filter(lambda lang: lang.isLangPrefix(line), self.languages))
 
         if len(selected_langs) == 0:

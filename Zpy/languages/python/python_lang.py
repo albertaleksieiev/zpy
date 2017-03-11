@@ -6,12 +6,16 @@ from Zpy.modules.module_manager import ModuleManager
 from Zpy.modules.zpy import zpy
 
 from prompt_toolkit.completion import Completion
+from Zpy.languages.python.python_completer import PythonCompleter
+
 
 class PythonLanguage(Language):
     def __init__(self):
         super(PythonLanguage, self).__init__()
 
         self.UnixLang = UnixLang()
+        self.completer = PythonCompleter()
+
         self.exec_command = []
         self.module_manager = ModuleManager()
         self.zpy = zpy(processor=None)
@@ -41,8 +45,30 @@ class PythonLanguage(Language):
         Complete this line
         :param line: line for completion
         :return: generator of completions
+        >>> completer = PythonLanguage().completer
+        >>> sorted([i.text for i in list(completer.complete('fo'))])
+        ['for', 'format']
+        >>> sorted([i.text for i in list(completer.complete('for'))])
+        ['for', 'format']
+        >>> len(sorted([i.text for i in list(completer.complete('f'))]))>2
+        True
+        >>> sorted([i.text for i in list(completer.complete('fo'))])
+        ['for', 'format']
+
+        >>> "with" in [i.text for i in list(completer.complete('with'))]
+        True
+        >>> "import" in [i.text for i in list(completer.complete('import'))]
+        True
+        >>> "somecommm" in [i.text for i in list(completer.complete('import'))]
+        False
+
+        >>> len(sorted([i.text for i in list(completer.complete(''))])) > 10
+        True
+        >>> "import" in [i.text for i in list(completer.complete('import'))]
+        True
         """
-        yield Completion(line+'asd', start_position=0)
+
+        return self.completer.complete(line)
 
     def get_module(self, processor):
         if processor is None:
@@ -99,4 +125,6 @@ class PythonLanguage(Language):
             return res
         except Exception as ex:
             return ex
+
+
 
