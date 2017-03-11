@@ -26,10 +26,12 @@ class Language:
         """
         yield Completion('PLEASE IMPLEMENT COMPLETION')
 
-    def evaluate(self, line):
+    def evaluate(self, line, processor=None, stdin=""):
         """
         Evaluate this line
         :param line: command line for evaluation
+        :param processor: Zpy processor
+        :param stdin: stdin will be passed to lang as Z variable
         :return: object, or decoded string, this object will be sended to the next chain as stdin
         """
         return ""

@@ -1,6 +1,8 @@
 import inspect
 
 from Zpy.languages.shell.unix_lang import UnixLang
+from Zpy.languages.js.js_lang import JavascriptLanguage
+
 from Zpy.languages.Language import Language
 from Zpy.modules.module_manager import ModuleManager
 from Zpy.modules.zpy import zpy
@@ -14,6 +16,8 @@ class PythonLanguage(Language):
         super(PythonLanguage, self).__init__()
 
         self.UnixLang = UnixLang()
+        self.JSLang = JavascriptLanguage()
+
         self.completer = PythonCompleter()
 
         self.exec_command = []
@@ -31,7 +35,7 @@ class PythonLanguage(Language):
         True
 
         """
-        return not self.UnixLang.isLang(line)
+        return not self.UnixLang.isLang(line) and not self.JSLang.isLang(line)
     def isLangPrefix(self, line):
         """
         Do the same as isLang method, except evaluation. This lang will be evaluated for completion

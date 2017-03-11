@@ -4,9 +4,12 @@ http://stackoverflow.com/questions/11669379/undefined-global-in-list-generator-e
 2) Autocomplete(http://unix.stackexchange.com/questions/23900/how-to-pipe-the-list-of-commands-displayed-by-of-tab-complete)
 http://stackoverflow.com/questions/1943244/tab-completion-with-pythons-cmd-cmd - win
 
-AUTOCOMPLETE
-    ###bash -c "compgen -c"
+
+#Ask about save default import
+>> import os
+>> Save this module?
+Y) Import this module by default
+N) Don't import this module by default, and dont ask again
+D) Dont ask about default imports
 
 
-ADD WELCOME MESSAGE
-Like in torch
