@@ -2,13 +2,18 @@ import os
 import re
 
 from Zpy.languages.Language import Language
-from libs import execjs
+from Zpy.modules.helpful.zjs import zjs
+import execjs
 
 class JavascriptLanguage(Language):
     def __init__(self):
         super(JavascriptLanguage, self).__init__()
         self.lang_regex = r"( *?j )"
         self.lang_regex_compiled = re.compile( self.lang_regex)
+        self.zjs = zjs(processor=None)
+        self.exec_command = []
+
+
 
     def prepare(self,line):
         """
@@ -42,7 +47,36 @@ class JavascriptLanguage(Language):
 
 
     def complete(self, line):
-        return super().complete(line)
+        return ""
+
+    def get_require_regex(self):
+        """
+        :return: regex for require statement
+        """
+        regex = r"(?:(?:var|const|\ *?)\s*(.*?)\s*=\s*)?require\(['\"]([^'\"]+)['\"](?:, ['\"]([^'\"]+a)['\"])?\);?"
+        return regex
+
+    def get_require_modules(self,str):
+        """
+        Find require statement
+        :param str:
+        :return: None if nothing finded, otherwise return arrays where elements is array with 2 elements, when first item is alias and second required module
+        >>> g = JavascriptLanguage().get_require_modules
+        >>> g('fs = require("fs");some=require("module")')
+        [['fs', 'fs'], ['some', 'module']]
+        >>> g('var req = require("request")')
+        [['req', 'request']]
+        >>> g("varreq=req")
+        """
+
+        requirements = []
+        matches = re.finditer(self.get_require_regex(), str)
+        for match in matches:
+            if match.group(1) is not None and match.group(2) is not None:
+                requirements.append([match.group(1),match.group(2)])
+        if len(requirements) == 0:
+            return None
+        return requirements
 
     def evaluate(self, line, processor=None, stdin=""):
         """
@@ -52,7 +86,34 @@ class JavascriptLanguage(Language):
         :param stdin: stdin will be passed to lang as Z variable
         :return: evaluation results
         >>> eval = JavascriptLanguage().evaluate
+        >>> eval("j setTimeout(function(){ sync('ASYNC') },200)")
+        'ASYNC'
         >>> eval('j 2 + 3')
         5
+        >>> eval("j fs.writeFileSync('/tmp/zpy.tmp', 'Zpy work with js!!!')")
+        >>> eval("j fs.readFileSync('/tmp/zpy.tmp', 'utf8')")
+        'Zpy work with js!!!'
         """
-        return execjs.eval(self.prepare(line))
+        line = self.prepare(line)
+
+        requirements = self.get_require_modules(line)
+        if requirements is not None:
+            for requirement in requirements:
+                comm = "%s = require('%s')" % (requirement[0],requirement[1])
+                if comm not in requirement:
+                    self.exec_command.append(comm)
+            return "Added new requirements : { %s }" % str(requirements)
+
+
+
+        # Add default imports
+        default_imports = self.zjs.get_def_imports_dict()
+        for name, imp in default_imports.items():
+            comm = "%s = %s"%(name,imp)
+            if comm not in self.exec_command:
+                self.exec_command.append(comm)
+
+        ctx = execjs.compile(";\n".join(self.exec_command \
+                                       + ["var sync = function(val) {process.stdout.write(JSON.stringify(['ok',val])); process.stdout.write(  '\\n' );   } "]))
+
+        return ctx.eval(line)

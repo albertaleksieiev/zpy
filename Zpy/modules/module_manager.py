@@ -1,5 +1,9 @@
-from Zpy.modules.zpy import zpy
 import importlib.util
+
+from Zpy.modules.helpful.zpy import zpy
+from Zpy.modules.helpful.zjs import zjs
+
+
 class ModuleManager():
     def __init__(self):
         self.modules = None
@@ -11,7 +15,8 @@ class ModuleManager():
     def refetch(self, processor):
         if self.modules == None:
             self.modules = {
-                'zpy': zpy(processor=processor)
+                'zpy': zpy(processor=processor),
+                'zjs': zjs(processor=processor)
             }
             modules = self.modules['zpy'].get_module_dict()
 

@@ -54,7 +54,6 @@ class Processor():
             lang = self.language_analyzer.analize(command)
             #print("EVALUATE LANG => %s" %lang)
             try:
-
                 stdin = lang.evaluate(command.strip(), self, stdin=stdin)
             except SyntaxError as e:
                 print("Cannot evaluate line `%s`" % command.strip())

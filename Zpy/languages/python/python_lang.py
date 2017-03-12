@@ -1,14 +1,12 @@
 import inspect
 
-from Zpy.languages.shell.unix_lang import UnixLang
-from Zpy.languages.js.js_lang import JavascriptLanguage
-
 from Zpy.languages.Language import Language
-from Zpy.modules.module_manager import ModuleManager
-from Zpy.modules.zpy import zpy
-
-from prompt_toolkit.completion import Completion
+from Zpy.languages.js.js_lang import JavascriptLanguage
 from Zpy.languages.python.python_completer import PythonCompleter
+from Zpy.languages.shell.unix_lang import UnixLang
+from Zpy.modules.helpful.zpy import zpy
+
+from Zpy.modules.module_manager import ModuleManager
 
 
 class PythonLanguage(Language):
@@ -22,7 +20,9 @@ class PythonLanguage(Language):
 
         self.exec_command = []
         self.module_manager = ModuleManager()
+
         self.zpy = zpy(processor=None)
+
 
     def isLang(self, line):
         #If not unix :)
