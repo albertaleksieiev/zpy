@@ -1,6 +1,6 @@
 
-Update README
 add completion to js
+add scripts import from jsfiles
 
 
 !!! http://stackoverflow.com/questions/11669379/undefined-global-in-list-generator-expression-using-python3-works-with-python2
@@ -19,3 +19,7 @@ D) Dont ask about default imports
 JS) modules like `request` don't work(installed global already)
 
 
+#### `sync_add` and `sync_end`
+Not so often but if you have multiple async functions which working in the same time and you want combine result from multiple functions into one. In this case you should use `sync_add` and `sync_end`
+```
+```

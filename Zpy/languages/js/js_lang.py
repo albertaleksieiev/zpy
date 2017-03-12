@@ -1,6 +1,6 @@
 import os
 import re
-
+import json
 from Zpy.languages.Language import Language
 from Zpy.modules.helpful.zjs import zjs
 import execjs
@@ -11,9 +11,7 @@ class JavascriptLanguage(Language):
         self.lang_regex = r"( *?j )"
         self.lang_regex_compiled = re.compile( self.lang_regex)
         self.zjs = zjs(processor=None)
-        self.exec_command = []
-
-
+        self.exec_command = ['fs = require("fs")','request = require("request")']
 
     def prepare(self,line):
         """
@@ -86,6 +84,10 @@ class JavascriptLanguage(Language):
         :param stdin: stdin will be passed to lang as Z variable
         :return: evaluation results
         >>> eval = JavascriptLanguage().evaluate
+        >>> eval("j setTimeout(function(){ sync_err('ASYNC') },200)")
+        Traceback (most recent call last):
+           ...
+        execjs._exceptions.ProgramError: ASYNC
         >>> eval("j setTimeout(function(){ sync('ASYNC') },200)")
         'ASYNC'
         >>> eval('j 2 + 3')
@@ -113,7 +115,46 @@ class JavascriptLanguage(Language):
             if comm not in self.exec_command:
                 self.exec_command.append(comm)
 
-        ctx = execjs.compile(";\n".join(self.exec_command \
-                                       + ["var sync = function(val) {process.stdout.write(JSON.stringify(['ok',val])); process.stdout.write(  '\\n' );   } "]))
 
+        z_variable = [] if stdin=="" else ['var z = %s' % json.dumps(stdin)]
+
+        sync_add_function = """
+                   var sync_add = function(val){
+                       sync_end.results.push(val)
+                   }
+               """
+        sync_end_function = """
+                   var sync_end = function(){
+                      process.stdout.write(JSON.stringify(['ok',sync_end.results]));
+                      process.stdout.write(  '\\n' );
+                      process.exit(0)
+                   }
+                   sync_end.results = []
+               """
+        sync_function = """
+            var sync = function(val) {
+                process.stdout.write(JSON.stringify(['ok',val]));
+                process.stdout.write(  '\\n' );
+                process.exit(0)
+            } """
+        sync_err = """
+            var sync_err = function(err){
+                process.stdout.write(JSON.stringify(['err',  err]));
+               process.stdout.write(  '\\n' );
+               process.exit(0)
+            }
+        """
+
+
+        regex_syncs_functions = r"sync_err.*?\(.*?\) | sync\(.*?\)"
+
+        for _ in (re.finditer(regex_syncs_functions, line)):
+            if(len(line)) > 0:
+                line =   "(" + line  + """) && Object.assign(function() { } ,{'skip_print':"zkip_"})""" #Set result of evaluation  undefined, remove converting our function to result
+            break
+
+
+        ctx = execjs.compile(";\n".join(self.exec_command \
+                                       + z_variable       \
+                                       +[sync_function,sync_err] ))
         return ctx.eval(line)

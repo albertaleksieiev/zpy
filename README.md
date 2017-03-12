@@ -1,7 +1,7 @@
 Zpy shell
 =================
 ![ZpyContent](https://github.com/albertaleksieiev/zpy/raw/content/img/zpy_banner.jpg)
-**Next level command line shell with script languages, like python. Work in shell with your favorite language.**
+**Next level command line shell with script languages, like python or js. Work in shell with your favorite language.**
 ```
 (Zpy) pwd | "Current folder %s" % z | cat -
 Current folder /Users/XXXX/pytho-nal
@@ -12,8 +12,9 @@ Zpy ideology says - pipeline make work in terminal great again! Pipeline play th
 ### Syntax
 If you want use Zpy you should a few rules.
  * Command will be evaluated by **unix system** if you add **`** symbol in begin of the token, or you command begin with [142 linux commands](http://www.mediacollege.com/linux/command/linux-command.html)
+ * Command will be evaluated by **javascript** command if you add `j` at begining of token. 
  * Command will be evaluated by **python** command **not unix command** (By default)
-
+ 
 #### From Python to Unix 
 ```
 (Zpy) "\n".join(["Zpy so awesome #review #1e%s"%i for i in range(10)]) | grep "5\|6\|8"
@@ -35,9 +36,31 @@ Generate "index.php" as z-value, and send it to next pipe. Last pipe will be eva
 ```
 Get current files, convert it into array and filter it by some condition
 We have access to z-variable as `z`.
+#### From (Unix or Python) to Js and back
+As you can see abowe, we have access to `z` variable from unix or python just use `z` or `$z` variables, this rule works the same way in js. 
+```
+(Zpy) 'http://weathers.co/api.php?city=New+York' | j req(z, (err,res,body) => sync(body)) | j JSON.parse(z).data | "Today is %s and current temperature %s" % (z['date'], z['temperature'])
+Today is 03-12-2017 and current temperature -14
+```
+`python` -> `javascript`-> `javascript`->  `python` 
+Get current temperature and date from weather.co.
+**Note** here we use `sync` function from javascript, this command will send data from **Async** function call (see description in javascript section).
+
+#### Salad of languages
+```
+(Zpy) j [1,2,3,4].map((e) => `js ${e}`) | ["python + %s" %x for x in z] | "\n".join(z) | sed -e 's/$/ + bash = Zpy/'
+python + js 1 + bash = Zpy
+python + js 2 + bash = Zpy
+python + js 3 + bash = Zpy
+python + js 4 + bash = Zpy
+```
+How about dah? `javascript` -> `python` -> `bash`
+
 ### Requirements
 * Python 3
 * pip3
+* compgen
+* nodejs or any other js runtime.
 
 ### Install
 Install via pip
@@ -49,6 +72,8 @@ Install from github sources:
 git clone git@github.com:albertaleksieiev/zpy.git
 cd zpy;pip3 install -r requirements.txt
 ```
+If you want use power of js, install [nodejs](https://nodejs.org/en/). 
+
 ### Run
 If you install zpy via pip just run in terminal
 ```
@@ -62,9 +87,28 @@ python3 Zpy/main.py
 ```
 python3 tests/main_test.py
 ```
+
+-----
+## Languages
+Currently zpy support 3 languages
+* [Python](#python)
+* [Javascript](#javascript)
+* Unix shell script
+
 ### More languages
  Now Zpy supports only python, but in the first release, we will add new language!
-### Python Imports
+ 
+## Python
+Zpy written in python, so python it's the first language which was be added and supported.
+* [Imports](#python-imports)
+* [Default imports](#default-imports)
+* [Own modules](#adding-new-module)
+  * [Create python module](#create-python-module)
+  * [Import module](#add-module-to-zpy)
+  * [Advanced usage pipe and module](#processing-input-from-pipe)
+
+
+#### Python Imports
 If you wan't import some modules into zpy, just add `~` in the begging and type your import command.
 ```
 (Zpy) ~import random,os
@@ -81,7 +125,7 @@ Show random Image from your Pictures folder.
 ['adduser', 'arch', 'awk', 'bc', 'cal', 'cat', 'chdir', 'chgrp', 'chkconfig', 'chmod', 'chown', 'chroot', 'cksum', 'clear', 'cmp', 'comm', 'cp', 'cron', 'crontab', 'csplit', 'cut', 'date', 'dc', 'dd', 'df', 'diff', 'diff3', 'dir', 'dircolors', 'dirname', 'du', 'echo', 'ed', 'egrep', 'eject', 'env', 'expand', 'expr', 'factor', 'FALSE', 'fdformat', 'fdisk', 'fgrep', 'find', 'fmt', 'fold', 'format', 'free', 'fsck', 'gawk', 'grep', 'groups', 'gzip', 'head', 'hostname', 'id', 'info', 'install', 'join', 'kill', 'less', 'ln', 'locate', 'logname', 'lpc', 'lpr', 'lprm', 'ls', 'man', 'mkdir', 'mkfifo', 'mknod', 'more', 'mount', 'mv', 'nice', 'nl', 'nohup', 'passwd', 'paste', 'pathchk', 'pr', 'printcap', 'printenv', 'printf', 'ps', 'pwd', 'quota', 'quotacheck', 'quotactl', 'ram', 'rcp', 'rm', 'rmdir', 'rpm', 'rsync', 'screen', 'sdiff', 'sed', 'select', 'seq', 'shutdown', 'sleep', 'sort', 'split', 'su', 'sum', 'symlink', 'sync', 'tac', 'tail', 'tar', 'tee', 'test', 'time', 'touch', 'top', 'traceroute', 'tr', 'TRUE', 'tsort', 'tty', 'umount', 'uname', 'unexpand', 'uniq', 'units', 'unshar', 'useradd', 'usermod', 'users', 'uuencode', 'uudecode', 'vdir', 'watch', 'wc', 'whereis', 'which', 'who', 'whoami', 'xargs', 'yes']
  ```
 Print all linux commands defined in zpy.
-#### Default imports
+##### Default imports
 If you don't want import general modules like `os` every time when you launch zpy, you can use **default imports**
 You just need execute zpy method `add_def_imports`.
 ```
@@ -98,7 +142,7 @@ Done! When you launch Zpy, this modules will be imported automatically. Let's tr
 ```
 **Note** Here we use np.std without input arguments, Zpy will pass z-value as 1 argument to function and evaluate it.
 Function will be evaluated with z parameter as argument by default, if return type of evaluation is function. 
-#### Modules
+##### Modules
 Zpy have some cool things, like modules! Modules is your own script which will be imported by default. Zpy have own zpy module.
 ```
 (Zpy) zpy
@@ -151,7 +195,7 @@ zpy.last_zcommand()
 ```
 ##### Adding new module
 You may want to add the module to Zpy functionality written in python, in Zpy you can do this in few steps
-##### 1) Create python module
+###### 1) Create python module
 
 ```
 (Zpy) pwd
@@ -164,7 +208,7 @@ You may want to add the module to Zpy functionality written in python, in Zpy yo
 def square(a):
     return a * a
 ```
-##### 2)Add module to Zpy
+###### 2)Add module to Zpy
 Run zpy method `add_module` from zpy python module.
  ```
 (Zpy) zpy.add_module("some_model","/path/to/some_module.py"
@@ -183,7 +227,7 @@ And try evaluate method from some_module
 (Zpy) some_module.square(4)
 16
 ```
-##### 3)Processing input from pipe
+###### 3)Processing input from pipe
 Passing pipe output to your module function - really easy. You just need declare `zpy_input` in your function argument list :
 ```
 def square(a):
@@ -225,7 +269,66 @@ Universal function power is done! Let's test it
 32.0
 ```
 
-### Examples
+## Javascript
+Javascript one of the most popular language ever, so zpy work with them. You can use nodejs with some features like File System I/O, or other JS runtime. Special thanks for [PyExecJS](https://github.com/doloopwhile/PyExecJS)! Zpy use this module inside, so you can see the full list of available runtimes in the link above.
+Everybody knows javascript use async functions, this is a problem cause pipes do not works async. This problem will be solved bu using [`sync`](#sync-function) or [`sync_err`](#sync_err) functions.
+* [Syntax](#js-syntax)
+* [Imports](#js-imports)
+  *  [Default imports](#js-default-imports)
+* [Async](#async-to-sync)
+  * [`sync` function](#sync-function)
+  * [`sync_err` function](#sync_err)
+### JS Syntax
+Command will be evaluated by **javascript** command if you add `j` at begining of token. 
+```
+(Zpy) j 2 + 3
+5
+```
+### JS Imports
+If you wan't import some modules into js chain, use `require`.
+```
+npm i request --global
+...
+(Zpy) j request = require('request')
+Added new requirements : { [['request', 'request']] }
+```
+**Note** your modules should be installed globaly 
+##### JS Default imports
+If you want import general modules like `request` every time when you launch Zpy, you can use **default imports**.
+You just need execute method `add_def_imports` from `zjs` object.
+```
+(Zpy) zjs.add_def_imports('request', 'require("request")')
+(Zpy) zjs.get_def_imports()
+request => require("request")
+```
+Done!
+### Async to Sync
+As I wrote above, we should have ability going from async function to sync function, but why we cannot use async without any modification? If we want make a request and after request send data to next chain, request should be fineshed before we go to next chain.
+```
+(Zpy) j [1,2,3].join("-") | z.split("-")
+['1', '2', '3'] //It's work great! Cause js chain not async.
+(Zpy) j request('http://weathers.co/api.php?city=New+York', (err,res,body) => "") 
+{'method': 'GET', 'uri': {'auth': None, 'path': '/api.php?city=New+York', 'host': 'weathers.co', 'hostname': 'weathers.co', 'hash': None, 'query': 'city=New+York', 'protocol': 'http:', 'port': 80, 'search': '?city=New+York', 'href': 'http://weathers.co/api.php?city=New+York', 'pathname': '/api.php', 'slashes': True}, 'headers': {'host': 'weathers.co'}}
+```
+As we can see result of evaluation request function is object with request properties like href, headers, host etc. Zpy trying convert it to JSON format. If result of evaluation is `function` and this function has attribute `skip_print='zkip_'` zpy skip result of evaluation  (it will be helpfull in async function calls). **Zpy do not return evaluation result if this is a func and func has properties `skip_print='zkip_'` or we use `sync`, `sync_err` function call.**
+#### `sync` function
+`sync` command will send data from **Async** function call and finish current chain. It's realy easy to use.
+```
+(Zpy) j request('http://weathers.co/api.php?city=New+York', (err,res,body) => sync(body)) | "Python retreive requests results from js `%s`" %z
+Python retreive requests results from js `{"apiVersion":"1.0", "data":{ "location":"New York", "temperature":"-14", "skytext":"Light snow", "humidity":"64", "wind":"7.56 km/h", "date":"03-12-2017", "day":"Sunday" } }`
+```
+#### `sync_err`
+Throw error from async function call.
+```
+(Zpy) j setTimeout(function(){ sync_err('SOME ERROR') },200)
+Traceback (most recent call last):
+  File ....
+  ...
+  execjs._exceptions.ProgramError: SOME ERROR
+```
+
+----
+#### Examples
 ```
 (Zpy) ~import os
 (Zpy) pwd | os.listdir(z) | "Files divided by commma %s" % ",".join(z)
