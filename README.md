@@ -103,9 +103,9 @@ Zpy written in python, so python it's the first language which was be added and 
 * [Imports](#python-imports)
 * [Default imports](#default-imports)
 * [Own modules](#adding-new-module)
-  * [Create python module](#create-python-module)
-  * [Import module](#add-module-to-zpy)
-  * [Advanced usage pipe and module](#processing-input-from-pipe)
+  * [Create python module](#1create-python-module)
+  * [Import module](#2add-module-to-zpy)
+  * [Advanced usage pipe and module](#3processing-input-from-pipe)
 
 
 #### Python Imports
