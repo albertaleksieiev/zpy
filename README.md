@@ -108,7 +108,7 @@ Zpy written in python, so python it's the first language which was be added and 
   * [Advanced usage pipe and module](#3processing-input-from-pipe)
 
 
-#### Python Imports
+### Python Imports
 If you wan't import some modules into zpy, just add `~` in the begging and type your import command.
 ```
 (Zpy) ~import random,os
@@ -125,7 +125,7 @@ Show random Image from your Pictures folder.
 ['adduser', 'arch', 'awk', 'bc', 'cal', 'cat', 'chdir', 'chgrp', 'chkconfig', 'chmod', 'chown', 'chroot', 'cksum', 'clear', 'cmp', 'comm', 'cp', 'cron', 'crontab', 'csplit', 'cut', 'date', 'dc', 'dd', 'df', 'diff', 'diff3', 'dir', 'dircolors', 'dirname', 'du', 'echo', 'ed', 'egrep', 'eject', 'env', 'expand', 'expr', 'factor', 'FALSE', 'fdformat', 'fdisk', 'fgrep', 'find', 'fmt', 'fold', 'format', 'free', 'fsck', 'gawk', 'grep', 'groups', 'gzip', 'head', 'hostname', 'id', 'info', 'install', 'join', 'kill', 'less', 'ln', 'locate', 'logname', 'lpc', 'lpr', 'lprm', 'ls', 'man', 'mkdir', 'mkfifo', 'mknod', 'more', 'mount', 'mv', 'nice', 'nl', 'nohup', 'passwd', 'paste', 'pathchk', 'pr', 'printcap', 'printenv', 'printf', 'ps', 'pwd', 'quota', 'quotacheck', 'quotactl', 'ram', 'rcp', 'rm', 'rmdir', 'rpm', 'rsync', 'screen', 'sdiff', 'sed', 'select', 'seq', 'shutdown', 'sleep', 'sort', 'split', 'su', 'sum', 'symlink', 'sync', 'tac', 'tail', 'tar', 'tee', 'test', 'time', 'touch', 'top', 'traceroute', 'tr', 'TRUE', 'tsort', 'tty', 'umount', 'uname', 'unexpand', 'uniq', 'units', 'unshar', 'useradd', 'usermod', 'users', 'uuencode', 'uudecode', 'vdir', 'watch', 'wc', 'whereis', 'which', 'who', 'whoami', 'xargs', 'yes']
  ```
 Print all linux commands defined in zpy.
-##### Default imports
+#### Default imports
 If you don't want import general modules like `os` every time when you launch zpy, you can use **default imports**
 You just need execute zpy method `add_def_imports`.
 ```
@@ -142,7 +142,7 @@ Done! When you launch Zpy, this modules will be imported automatically. Let's tr
 ```
 **Note** Here we use np.std without input arguments, Zpy will pass z-value as 1 argument to function and evaluate it.
 Function will be evaluated with z parameter as argument by default, if return type of evaluation is function. 
-##### Modules
+#### Modules
 Zpy have some cool things, like modules! Modules is your own script which will be imported by default. Zpy have own zpy module.
 ```
 (Zpy) zpy
@@ -193,9 +193,9 @@ zpy.last_zcommand()
 (Zpy) zpy.eval('Get stock NSE:HDFC')
 1375.7
 ```
-##### Adding new module
+#### Adding new module
 You may want to add the module to Zpy functionality written in python, in Zpy you can do this in few steps
-###### 1) Create python module
+##### 1)Create python module
 
 ```
 (Zpy) pwd
@@ -208,7 +208,7 @@ You may want to add the module to Zpy functionality written in python, in Zpy yo
 def square(a):
     return a * a
 ```
-###### 2)Add module to Zpy
+##### 2)Add module to Zpy
 Run zpy method `add_module` from zpy python module.
  ```
 (Zpy) zpy.add_module("some_model","/path/to/some_module.py"
@@ -227,7 +227,7 @@ And try evaluate method from some_module
 (Zpy) some_module.square(4)
 16
 ```
-###### 3)Processing input from pipe
+##### 3)Processing input from pipe
 Passing pipe output to your module function - really easy. You just need declare `zpy_input` in your function argument list :
 ```
 def square(a):
