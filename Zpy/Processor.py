@@ -1,5 +1,5 @@
 import os,subprocess
-
+import traceback
 from Zpy.Pipeline import Pipeline
 from Zpy.languages.LanguageAnalyzer import LanguageAnalyzer
 class Processor():
@@ -38,25 +38,26 @@ class Processor():
         >>> forward("cd %s" % tempdir.strip())
         >>> forward("pwd | True if len(os.listdir(z.strip())) > 0 else False ")
         True
-        >>> forward('"https://www.reddit.com/r/books/" | `wget -qO- $z |  re.findall(r"Book[^\.].*?",z,re.IGNORECASE) | True if len(z) > 0 else False')
-        True
         """
+        #>>> forward('"https://www.reddit.com/r/books/" | `wget -qO- $z |  re.findall(r"Book[^\.].*?",z,re.IGNORECASE) | True if len(z) > 0 else False')
+        #True
+
+
 
         if len(line) == 0:
             return
-        #return
 
         commands = self.pipeline.split(line=line)
         self.info['pipes_count'] = len(commands)
         for command in commands:
             lang = self.language_analyzer.analize(command)
-            #print("EVALUATE LANG => %s" %lang)
             try:
-
                 stdin = lang.evaluate(command.strip(), self, stdin=stdin)
             except SyntaxError as e:
                 print("Cannot evaluate line `%s`" % command.strip())
                 print(e)
+            except Exception as e:
+                traceback.print_exc()
         if (isinstance(stdin, str) and stdin == "") or stdin is None:
             pass
         else:

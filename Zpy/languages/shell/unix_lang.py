@@ -1,12 +1,20 @@
 import subprocess, os, re
 from Zpy.Utils import get_linux_commands
 from Zpy.storage.SuffixTree import SuffixTree
+from Zpy.languages.Language import Language
+from Zpy.languages.shell.unix_completer import UnixCompleter
+
 
 class WrondDstDirException(Exception): pass
-class UnixLang():
+
+
+class UnixLang(Language):
     def __init__(self):
+        super(UnixLang, self).__init__()
         self.buildTree()
         self.current_dir = os.getcwd()
+        self.unix_completer = UnixCompleter()
+
     def buildTree(self):
         """
         Build suffix tree for fast search
@@ -29,7 +37,25 @@ class UnixLang():
         False
         """
         return (len(line) > 0 and line[0]=="`") or self.Tree.find(line)
+    def isLangPrefix(self, line):
+        """
+        Do the same as isLang method, except evaluation. This lang will be evaluated for completion
+        :param line: command
+        :return: True if this lang
+        """
+        return self.isLang(line)
 
+    def complete(self, line):
+        """
+        Complete this line
+        :param line: line for completion
+        :return: generator of completions
+        >>> completer = UnixLang()
+        >>> "ls" in [i.text for i in list(completer.complete('l'))]
+        True
+        """
+
+        return self.unix_completer.complete(self.prepare(line))
 
     def prepare(self,line):
         """
@@ -49,6 +75,7 @@ class UnixLang():
         if len(line) > 0 and line[0]=="`":
             return self.prepare(line[1:])
         return str(line)
+
     def set_directory(self, dir):
         """
         Change current directory

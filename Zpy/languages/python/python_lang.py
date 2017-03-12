@@ -1,22 +1,30 @@
 import inspect
 
+from Zpy.languages.Language import Language
+from Zpy.languages.js.js_lang import JavascriptLanguage
+from Zpy.languages.python.python_completer import PythonCompleter
 from Zpy.languages.shell.unix_lang import UnixLang
+from Zpy.modules.helpful.zpy import zpy
+
 from Zpy.modules.module_manager import ModuleManager
-from Zpy.modules.zpy import zpy
 
 
-class PythonLanguage():
+class PythonLanguage(Language):
     def __init__(self):
+        super(PythonLanguage, self).__init__()
+
         self.UnixLang = UnixLang()
+        self.JSLang = JavascriptLanguage()
+
+        self.completer = PythonCompleter()
+
         self.exec_command = []
         self.module_manager = ModuleManager()
+
         self.zpy = zpy(processor=None)
 
 
-
-
-
-    def isLang(self,line):
+    def isLang(self, line):
         #If not unix :)
         """
         :param line: command
@@ -27,14 +35,52 @@ class PythonLanguage():
         True
 
         """
-        return not self.UnixLang.isLang(line)
+        return not self.UnixLang.isLang(line) and not self.JSLang.isLang(line)
+    def isLangPrefix(self, line):
+        """
+        Do the same as isLang method, except evaluation. This lang will be evaluated for completion
+        :param line: command
+        :return: True if this lang
+        """
+        return self.isLang(line)
+
+    def complete(self, line):
+        """
+        Complete this line
+        :param line: line for completion
+        :return: generator of completions
+        >>> completer = PythonLanguage().completer
+        >>> sorted([i.text for i in list(completer.complete('fo'))])
+        ['for', 'format']
+        >>> sorted([i.text for i in list(completer.complete('for'))])
+        ['for', 'format']
+        >>> len(sorted([i.text for i in list(completer.complete('f'))]))>2
+        True
+        >>> sorted([i.text for i in list(completer.complete('fo'))])
+        ['for', 'format']
+
+        >>> "with" in [i.text for i in list(completer.complete('with'))]
+        True
+        >>> "import" in [i.text for i in list(completer.complete('import'))]
+        True
+        >>> "somecommm" in [i.text for i in list(completer.complete('import'))]
+        False
+
+        >>> len(sorted([i.text for i in list(completer.complete(''))])) > 10
+        True
+        >>> "import" in [i.text for i in list(completer.complete('import'))]
+        True
+        """
+
+        return self.completer.complete(line)
+
     def get_module(self, processor):
-        if processor == None:
+        if processor is None:
             return {}
         return self.module_manager.get_modules(processor=processor)
 
-    ##TODO OPTIMIZE
-    def evaluate(self, line, processor = None, stdin=""):
+    # TODO OPTIMIZE
+    def evaluate(self, line, processor=None, stdin=""):
         """
         Evaluate python
         :param line: python line
@@ -47,7 +93,7 @@ class PythonLanguage():
         20
         >>> pl.evaluate("ls")
         NameError("name 'ls' is not defined",)
-        >>> pl.evaluate("z['x'] * 15",stdin={'x':15})
+        >>> pl.evaluate("z['x'] * 15", stdin={'x':15})
         225
         >>> pl.evaluate("~import os, uuid")
         ''
@@ -58,17 +104,17 @@ class PythonLanguage():
             self.exec_command.append(line[1:])
             return ""
 
-        ##Add default imports
+        # Add default imports
         default_imports = self.zpy.get_def_imports_dict()
-        for name,imp in default_imports.items():
+        for name, imp in default_imports.items():
             if imp not in self.exec_command:
                 self.exec_command.append(imp)
 
         exec("\n".join(self.exec_command) + "\n")
 
-        #Set z-variable
+        # Set z-variable
         z = stdin
-        #Set modules
+        # Set modules
         for name, module in self.get_module(processor).items():
             locals()[name.split(".")[-1]] = module
 
@@ -83,4 +129,6 @@ class PythonLanguage():
             return res
         except Exception as ex:
             return ex
+
+
 

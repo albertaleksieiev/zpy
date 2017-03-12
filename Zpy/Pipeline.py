@@ -26,7 +26,13 @@ class Pipeline:
         ['ls', 'asd', 'qwe', 'zxc', 'qqq']
         >>> Pipeline().split("cat 'asd|.txt' | z + '|no'")
         ["cat 'asd|.txt' ", " z + '|no'"]
+        >>> Pipeline().split("")
+        ['']
         """
+
+        if len(line) == 0:
+            return ['']
+
         str_matches = self.findStrs(line=line)
 
         parts = findBeginAndEndIndexesOfRegex(line,regex=r"\|")
