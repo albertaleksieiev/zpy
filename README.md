@@ -1,6 +1,6 @@
 Zpy shell
 =================
-![ZpyContent](https://github.com/albertaleksieiev/zpy/raw/content/img/zpy_banner.jpg)
+![ZpyContent](https://github.com/albertaleksieiev/zpy/raw/content/img/screenshot-1.png)
 **Next level command line shell with script languages, like python or js. Work in shell with your favorite language.**
 ```
 (Zpy) pwd | "Current folder %s" % z | cat -
