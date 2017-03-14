@@ -7,7 +7,7 @@ Zpy shell
 Current folder /Users/XXXX/pytho-nal
 ```
 ### Pipeline
-Zpy ideology says - pipeline make work in terminal great again! Pipeline play the major role in zpy. If you want to use every opportunity of Zpy you should know a few things about the pipeline. Input command will be splited by pipeline character, each of token will be evaluated by shell or python interpreter, and tokens will be chained into 1 chain. Zpy pass previous token evaluation result as stdin to next token and you have access to z-variable if token not expects to stdin. So Zpy pipes work like standard unix pipes.
+Zpy ideology says - pipeline make work in terminal great again! Pipeline play the major role in zpy. If you want to use every opportunity of Zpy you should know a few things about the pipeline. Input command will be splited by pipeline character, each of token will be evaluated by shell,python or js interpreter, and tokens will be chained into 1 chain. Zpy pass previous token evaluation result as stdin to next token and you have access to z-variable if token not expects to stdin. So Zpy pipes work like standard unix pipes.
 
 ### Syntax
 If you want use Zpy you should a few rules.
@@ -98,7 +98,7 @@ Currently zpy support 3 languages
 * [Chain Pool](#chain-pool) (additional language)
 
 ### More languages
- Now Zpy supports only python, but in the first release, we will add new language!
+ Now Zpy supports python and js, but in the first release, we will add more languages!
  
 ## Python
 Zpy written in python, so python it's the first language which was be added and supported.
