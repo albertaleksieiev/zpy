@@ -25,7 +25,7 @@ class JavascriptLanguage(Language):
         'some string'
 
         """
-        return re.sub(self.lang_regex,"",line).strip()
+        return re.sub(self.lang_regex,"",line,1).strip()
     def isLangPrefix(self, line):
         return self.isLang(line)
 

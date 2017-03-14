@@ -338,6 +338,7 @@ Chain pool is programming language which have a lot of usefull functions inside 
 #### Syntax
 **`[`** `for` **`]`** `any other language command`, where `[]` is *Chain pool* syntax, `for` - for function. 
 ![Chain pool [for] function](https://raw.githubusercontent.com/albertaleksieiev/zpy/content/img/Chain%20Pool%20%5Bfor%5D%20function.jpg)
+
 Here we generate data by python, simply by typing array initialization keyword, after that we use `[for]` keyword, split this array to 2 stdin arguments, evaluate shell function `ls` for every argument ('folder1' and 'folder2') and finally join result into array, and send into next chain. And in the last chain we just concatenate array by `,` character.
 ```
 (Zpy) ['.', '..'] |[for] ls $z | ','.join(z)
@@ -370,6 +371,12 @@ Get current directory using shell command, pipe into python code as z-variable a
 Convert ugly result after evaluation `ls -lah` to great table!
 **Note** This functionality available inside zpy module `ls -lah | zpy.as_table`
 
+```
+(Zpy) ~import numpy as np
+(Zpy) np.arange(10).reshape(2,5).tolist() |[for] [for] z**2
+[[0, 1, 4, 9, 16], [25, 36, 49, 64, 81]]
+```
+Iterate every row and column and change every value, by `power` function.
 
 ```
 (Zpy) `wget -qO- http://example.com | z.split(" ") | filter(lambda x : "head" in x,z) | list(z) 
