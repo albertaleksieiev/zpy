@@ -34,7 +34,7 @@ class Cmd:
                                   completer=self.completer,
                                   style=DocumentStyle, history=history)
                     print(self.processor.forward(text))
- 
+
             except KeyboardInterrupt as ex:
                 print("^C")
             except EOFError:
