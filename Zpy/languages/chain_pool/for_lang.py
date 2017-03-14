@@ -30,6 +30,7 @@ class ForLanguage(Language):
         return re.sub(self.lang_regex,"",line,1).strip()
 
 
+
     def isLang(self, line):
         """
         JS language contain upper case letter `j` at begin, like '   j [1,2,3,4].map( function(e) { return e*2 } )'

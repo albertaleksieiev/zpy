@@ -360,6 +360,7 @@ LICENSE.txt
 README.md
 Zpy ...., parent_folder content
 ```
+
 Code for diagram above. Generate array, use *Chain pool* function `for` and join results by using ',' character.
 ```
 (Zpy) ~import numpy as np
@@ -367,6 +368,7 @@ Code for diagram above. Generate array, use *Chain pool* function `for` and join
 [[0, 1, 4, 9, 16], [25, 36, 49, 64, 81]]
 ```
 Iterate every row and column and change every value, by `power` function.
+
 
 #### Examples
 ```
