@@ -138,12 +138,6 @@ class UnixLang(Language):
     def eval(self, line, processor = None, env = None, input="", return_result_anyway = False):
         """
         Helping function for evaluation
-        :param line:
-        :param processor:
-        :param env:
-        :param input:
-        :param return_result_anyway:
-        :return:
         """
 
         if return_result_anyway or (processor is not None and processor.info['pipes_count'] > 1):
@@ -163,7 +157,7 @@ class UnixLang(Language):
         except Exception as ex:
             return str(out[0])[2:-1]
 
-    def evaluate(self, line, processor = None, stdin ="", return_result_anyway = False):
+    def evaluate(self, line, processor = None, stdin ="", return_result_anyway = True):
         """
         Evaluate shell command
         :param line: line to execute
@@ -176,6 +170,7 @@ class UnixLang(Language):
         ['cde', 'xyz', '123']
         >>> UnixLang().evaluate("echo 'xyz\\ncde\\n123' | cat -",return_result_anyway=True).strip().split('\\n')
         ['xyz', 'cde', '123']
+        >>> UnixLang().evaluate("pwd")
         """
         line = self.prepare(line)
 

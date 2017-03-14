@@ -36,7 +36,8 @@ class Cmd(cmd.Cmd):
             pass
         atexit.register(readline.write_history_file, histfile)
     def default(self, line):
-        self.processor.forward(line)
+        print(self.processor.forward(line))
+
     def do_EOF(self, line):
         print("Bye bye!")
         sys.exit(0)

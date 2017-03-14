@@ -11,8 +11,8 @@ class JavascriptLanguage(Language):
         self.lang_regex = r"( *?j )"
         self.lang_regex_compiled = re.compile( self.lang_regex)
         self.zjs = zjs(processor=None)
-        self.exec_command = ['fs = require("fs")','request = require("request")']
-
+        #self.exec_command = ['fs = require("fs")','request = require("request")']
+        self.exec_command=[]
     def prepare(self,line):
         """
         Remove `j` character at begin

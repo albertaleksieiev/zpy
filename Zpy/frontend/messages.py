@@ -19,7 +19,7 @@ _/    _/_/_/_/_/  _/_/_/      _/_/_/    _/
      | |  / /| '_ \| | | | |    | \033[164m Shell for everyone\033[0m
      | | / /_| |_) | |_| | |    |
      | |/____| .__/ \__, | |    |
-      \_\    |_|    |____/_/     | \033[94m https://github.com/albertaleksieiev/zpy\033[0m\033
+      \_\    |_|    |____/_/    | \033[94m https://github.com/albertaleksieiev/zpy\033[0m\033
     """
 
     c=r"""

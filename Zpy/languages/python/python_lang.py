@@ -4,6 +4,8 @@ from Zpy.languages.Language import Language
 from Zpy.languages.js.js_lang import JavascriptLanguage
 from Zpy.languages.python.python_completer import PythonCompleter
 from Zpy.languages.shell.unix_lang import UnixLang
+from Zpy.languages.chain_pool.for_lang import ForLanguage
+
 from Zpy.modules.helpful.zpy import zpy
 
 from Zpy.modules.module_manager import ModuleManager
@@ -15,6 +17,7 @@ class PythonLanguage(Language):
 
         self.UnixLang = UnixLang()
         self.JSLang = JavascriptLanguage()
+        self.ForLang = ForLanguage()
 
         self.completer = PythonCompleter()
 
@@ -35,7 +38,7 @@ class PythonLanguage(Language):
         True
 
         """
-        return not self.UnixLang.isLang(line) and not self.JSLang.isLang(line)
+        return not self.UnixLang.isLang(line) and not self.JSLang.isLang(line) and not self.ForLang.isLang(line)
     def isLangPrefix(self, line):
         """
         Do the same as isLang method, except evaluation. This lang will be evaluated for completion

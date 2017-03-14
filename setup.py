@@ -19,7 +19,7 @@ except(IOError, ImportError) as e:
 setup(
   name = 'zpyshell',
   packages = find_packages(),
-  version = '0.1.0.6',
+  version = '0.1.1.3',
   description = 'Command line shell with script languages, like python',
   long_description=long_description,
   author = 'Albert Aleksieiev',
@@ -37,6 +37,21 @@ setup(
                  'Topic :: Terminals',
                  'Environment :: Console'
                  ],
+    extras_require = {
+        'coloring_console':  ["pygments"],
+
+        'prompt': ["prompt_toolkit"],
+
+        'docs': ["pypandoc"],
+
+        'tables_for_terminal': ["terminaltables"],
+    },
+    install_requires=[
+        "pygments",
+        "prompt_toolkit",
+        "pypandoc",
+        "terminaltables==3.1.0",
+    ],
     entry_points={
        'console_scripts': [
            'zpy = Zpy.main:main',

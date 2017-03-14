@@ -1,10 +1,10 @@
 from Zpy.languages.python.python_lang import PythonLanguage
 from Zpy.languages.shell.unix_lang import UnixLang
 from Zpy.languages.js.js_lang import JavascriptLanguage
-
+from Zpy.languages.chain_pool.for_lang import ForLanguage
 class LanguageAnalyzer():
     def __init__(self):
-        self.languages = [JavascriptLanguage(),UnixLang(), PythonLanguage()]
+        self.languages = [JavascriptLanguage(),UnixLang(),ForLanguage(), PythonLanguage()]
 
     def get_lang_for_complete_line(self, line_):
         """
@@ -46,6 +46,8 @@ class LanguageAnalyzer():
         'PythonLanguage'
         >>> analize(' j  2 + 3').__class__.__name__
         'JavascriptLanguage'
+        >>> analize('[for] a').__class__.__name__
+        'ForLanguage'
         """
         comm = line.strip()
 

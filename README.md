@@ -12,8 +12,9 @@ Zpy ideology says - pipeline make work in terminal great again! Pipeline play th
 ### Syntax
 If you want use Zpy you should a few rules.
  * Command will be evaluated by **unix system** if you add **`** symbol in begin of the token, or you command begin with [142 linux commands](http://www.mediacollege.com/linux/command/linux-command.html)
- * Command will be evaluated by **javascript** command if you add `j` at begining of token. 
- * Command will be evaluated by **python** command **not unix command** (By default)
+ * Command will be evaluated by [**javascript**] command if you add `j` at begining of token. 
+ * Command will be evaluated by **Chain Pool** if you add specific characters like `for` in the begin the line.
+ * Command will be evaluated by **python** command **in any other case**(by default just evaluate python code - python is default language)
  
 #### From Python to Unix 
 ```
