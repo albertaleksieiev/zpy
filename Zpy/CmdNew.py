@@ -33,7 +33,8 @@ class Cmd:
                     text = prompt(self.prompt, lexer=PythonLexer,
                                   completer=self.completer,
                                   style=DocumentStyle, history=history)
-                    self.processor.forward(text)
+                    print(self.processor.forward(text))
+
             except KeyboardInterrupt as ex:
                 print("^C")
             except EOFError:

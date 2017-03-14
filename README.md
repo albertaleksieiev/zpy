@@ -12,8 +12,9 @@ Zpy ideology says - pipeline make work in terminal great again! Pipeline play th
 ### Syntax
 If you want use Zpy you should a few rules.
  * Command will be evaluated by **unix system** if you add **`** symbol in begin of the token, or you command begin with [142 linux commands](http://www.mediacollege.com/linux/command/linux-command.html)
- * Command will be evaluated by **javascript** command if you add `j` at begining of token. 
- * Command will be evaluated by **python** command **not unix command** (By default)
+ * Command will be evaluated by [**javascript**](#javascript) language if you add `j` at begining of token. 
+ * Command will be evaluated by [**Chain Pool**](#chain-pool) if you add specific characters like `for` in the begin the line.
+ * Command will be evaluated by [**python**](#python) command **in any other case**(by default just evaluate python code - python is default language)
  
 #### From Python to Unix 
 ```
@@ -94,6 +95,7 @@ Currently zpy support 3 languages
 * [Python](#python)
 * [Javascript](#javascript)
 * Unix shell script
+* [Chain Pool](#chain-pool) (additional language)
 
 ### More languages
  Now Zpy supports python and js, but in the first release, we will add more languages!
@@ -328,7 +330,23 @@ Traceback (most recent call last):
   execjs._exceptions.ProgramError: SOME ERROR
 ```
 
-----
+
+## Chain Pool
+Chain pool is programming language which have a lot of usefull functions inside Zpy. To start use functions like `[for]` just type this keyword after pipe character `|`, like `|[for]`. Square brackets` []` indicate *Chain pool* function `for`. Chain pool take **stdin** as input stdin, and do some work with stdin, what work you enter after `|[CHAIN_FUNCTION]` keyword, you can use your **favorite language** with Chain pool function.
+### `[for]` function
+`[for]` function iterate throught every item in *array* or *data splited by `\n`* character as stdin and evaluate every iterated item by any other language.
+#### Syntax
+**`[`** `for` **`]`** `any other language command`, where `[]` is *Chain pool* syntax, `for` - for function. 
+![Chain pool [for] function](https://raw.githubusercontent.com/albertaleksieiev/zpy/content/img/Chain%20Pool%20%5Bfor%5D%20function.jpg)
+Here we generate data by python, simply by typing array initialization keyword, after that we use `[for]` keyword, split this array to 2 stdin arguments, evaluate shell function `ls` for every argument ('folder1' and 'folder2') and finally join result into array, and send into next chain. And in the last chain we just concatenate array by `,` character.
+```
+(Zpy) ['.', '..'] |[for] ls $z | ','.join(z)
+LICENSE.txt
+README.md
+Zpy ...., parent_folder content
+```
+
+
 #### Examples
 ```
 (Zpy) ~import os
