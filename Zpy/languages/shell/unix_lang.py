@@ -170,7 +170,8 @@ class UnixLang(Language):
         ['cde', 'xyz', '123']
         >>> UnixLang().evaluate("echo 'xyz\\ncde\\n123' | cat -",return_result_anyway=True).strip().split('\\n')
         ['xyz', 'cde', '123']
-        >>> UnixLang().evaluate("pwd")
+        >>> os.path.isdir(UnixLang().evaluate("pwd").strip())
+        True
         """
         line = self.prepare(line)
 
