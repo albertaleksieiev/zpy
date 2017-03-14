@@ -19,7 +19,7 @@ except(IOError, ImportError) as e:
 setup(
   name = 'zpyshell',
   packages = find_packages(),
-  version = '0.1.1.3',
+  version = '0.1.1.4',
   description = 'Command line shell with script languages, like python',
   long_description=long_description,
   author = 'Albert Aleksieiev',

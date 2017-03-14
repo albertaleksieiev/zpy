@@ -92,10 +92,11 @@ class JavascriptLanguage(Language):
         'ASYNC'
         >>> eval('j 2 + 3')
         5
-        >>> eval("j fs.writeFileSync('/tmp/zpy.tmp', 'Zpy work with js!!!')")
-        >>> eval("j fs.readFileSync('/tmp/zpy.tmp', 'utf8')")
-        'Zpy work with js!!!'
         """
+
+        # >>> eval("j fs.writeFileSync('/tmp/zpy.tmp', 'Zpy work with js!!!')")
+        # >>> eval("j fs.readFileSync('/tmp/zpy.tmp', 'utf8')")
+        #'Zpy work with js!!!'
         line = self.prepare(line)
 
         requirements = self.get_require_modules(line)
