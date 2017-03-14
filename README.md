@@ -360,7 +360,13 @@ LICENSE.txt
 README.md
 Zpy ...., parent_folder content
 ```
-
+Code for diagram above. Generate array, use *Chain pool* function `for` and join results by using ',' character.
+```
+(Zpy) ~import numpy as np
+(Zpy) np.arange(10).reshape(2,5).tolist() |[for] [for] z**2
+[[0, 1, 4, 9, 16], [25, 36, 49, 64, 81]]
+```
+Iterate every row and column and change every value, by `power` function.
 
 #### Examples
 ```
@@ -384,13 +390,6 @@ Get current directory using shell command, pipe into python code as z-variable a
 ```
 Convert ugly result after evaluation `ls -lah` to great table!
 **Note** This functionality available inside zpy module `ls -lah | zpy.as_table`
-
-```
-(Zpy) ~import numpy as np
-(Zpy) np.arange(10).reshape(2,5).tolist() |[for] [for] z**2
-[[0, 1, 4, 9, 16], [25, 36, 49, 64, 81]]
-```
-Iterate every row and column and change every value, by `power` function.
 
 ```
 (Zpy) ['http://google.com','http://yandex.ru'] |[for] j request(z, (err,res,body) => sync(body))
