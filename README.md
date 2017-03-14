@@ -6,7 +6,10 @@ Zpy shell
 (Zpy) pwd | "Current folder %s" % z | cat
 Current folder /Users/XXXX/pytho-nal
 (Zpy) j request = require('request')
-(Zpy) j ['New York', 'Paris', 'London', 'Berlin', 'San Francisco'] |[for] j request(`http://weathers.co/api.php?city=${z}`, (err,res,body) => sync(JSON.parse(body).data)) |j z.map((data) => `${data.location} has temperature ${data.temperature} °F`) |[for] echo $z >> weather.txt
+(Zpy) j ['New York', 'Paris', 'London', 'Berlin', 'San Francisco'] 
+      |[for] j request(`http://weathers.co/api.php?city=${z}`, (err,res,body) => sync(JSON.parse(body).data)) 
+      |j z.map((data) => `${data.location} has temperature ${data.temperature} °F`) 
+      |[for] echo $z >> weather.txt
 ['', '', '', '', '']
 (Zpy) cat weather.txt
 New York has temperature -7 °F
