@@ -3,9 +3,23 @@ Zpy shell
 ![ZpyContent](https://github.com/albertaleksieiev/zpy/raw/content/img/screenshot-1.png)
 **Next level command line shell with script languages, like python or js. Work in shell with your favorite language.**
 ```
-(Zpy) pwd | "Current folder %s" % z | cat -
+(Zpy) pwd | "Current folder %s" % z | cat
 Current folder /Users/XXXX/pytho-nal
+(Zpy) j request = require('request')
+(Zpy) j ['New York', 'Paris', 'London', 'Berlin', 'San Francisco'] 
+      |[for] j request(`http://weathers.co/api.php?city=${z}`, (err,res,body) => sync(JSON.parse(body).data)) 
+      |j z.map((data) => `${data.location} has temperature ${data.temperature} °F`) 
+      |[for] echo $z >> weather.txt
+['', '', '', '', '']
+(Zpy) cat weather.txt
+New York has temperature -7 °F
+Paris has temperature -7 °F
+London has temperature -7 °F
+Berlin has temperature 4 °F
+San Francisco has temperature 24 °F
 ```
+
+
 ### Pipeline
 Zpy ideology says - pipeline make work in terminal great again! Pipeline play the major role in zpy. If you want to use every opportunity of Zpy you should know a few things about the pipeline. Input command will be splited by pipeline character, each of token will be evaluated by shell,python or js interpreter, and tokens will be chained into 1 chain. Zpy pass previous token evaluation result as stdin to next token and you have access to z-variable if token not expects to stdin. So Zpy pipes work like standard unix pipes.
 
@@ -338,6 +352,7 @@ Chain pool is programming language which have a lot of usefull functions inside 
 #### Syntax
 **`[`** `for` **`]`** `any other language command`, where `[]` is *Chain pool* syntax, `for` - for function. 
 ![Chain pool [for] function](https://raw.githubusercontent.com/albertaleksieiev/zpy/content/img/Chain%20Pool%20%5Bfor%5D%20function.jpg)
+
 Here we generate data by python, simply by typing array initialization keyword, after that we use `[for]` keyword, split this array to 2 stdin arguments, evaluate shell function `ls` for every argument ('folder1' and 'folder2') and finally join result into array, and send into next chain. And in the last chain we just concatenate array by `,` character.
 ```
 (Zpy) ['.', '..'] |[for] ls $z | ','.join(z)
@@ -345,6 +360,14 @@ LICENSE.txt
 README.md
 Zpy ...., parent_folder content
 ```
+
+Code for diagram above. Generate array, use *Chain pool* function `for` and join results by using ',' character.
+```
+(Zpy) ~import numpy as np
+(Zpy) np.arange(10).reshape(2,5).tolist() |[for] [for] z**2
+[[0, 1, 4, 9, 16], [25, 36, 49, 64, 81]]
+```
+Iterate every row and column and change every value, by `power` function.
 
 
 #### Examples
@@ -370,6 +393,9 @@ Get current directory using shell command, pipe into python code as z-variable a
 Convert ugly result after evaluation `ls -lah` to great table!
 **Note** This functionality available inside zpy module `ls -lah | zpy.as_table`
 
+```
+(Zpy) ['http://google.com','http://yandex.ru'] |[for] j request(z, (err,res,body) => sync(body))
+```
 
 ```
 (Zpy) `wget -qO- http://example.com | z.split(" ") | filter(lambda x : "head" in x,z) | list(z) 

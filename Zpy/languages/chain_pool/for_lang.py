@@ -27,7 +27,8 @@ class ForLanguage(Language):
         'some string'
 
         """
-        return re.sub(self.lang_regex,"",line).strip()
+        return re.sub(self.lang_regex,"",line,1).strip()
+
 
 
     def isLang(self, line):

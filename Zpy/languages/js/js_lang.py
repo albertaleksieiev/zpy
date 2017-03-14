@@ -25,7 +25,7 @@ class JavascriptLanguage(Language):
         'some string'
 
         """
-        return re.sub(self.lang_regex,"",line).strip()
+        return re.sub(self.lang_regex,"",line,1).strip()
     def isLangPrefix(self, line):
         return self.isLang(line)
 
@@ -92,10 +92,11 @@ class JavascriptLanguage(Language):
         'ASYNC'
         >>> eval('j 2 + 3')
         5
-        >>> eval("j fs.writeFileSync('/tmp/zpy.tmp', 'Zpy work with js!!!')")
-        >>> eval("j fs.readFileSync('/tmp/zpy.tmp', 'utf8')")
-        'Zpy work with js!!!'
         """
+
+        # >>> eval("j fs.writeFileSync('/tmp/zpy.tmp', 'Zpy work with js!!!')")
+        # >>> eval("j fs.readFileSync('/tmp/zpy.tmp', 'utf8')")
+        #'Zpy work with js!!!'
         line = self.prepare(line)
 
         requirements = self.get_require_modules(line)
