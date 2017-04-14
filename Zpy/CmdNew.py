@@ -10,11 +10,8 @@ from Zpy.frontend.DocumentStyle import DocumentStyle
 from Zpy.Processor import Processor
 from Zpy.Completer import Completer
 
+import os
 
-
-
-
-import execjs
 
 
 class Cmd:
@@ -24,7 +21,9 @@ class Cmd:
         self.processor = Processor()
         self.completer = Completer()
     def cmdloop(self):
-        history = FileHistory(".history")
+
+        history_location = os.path.join(os.path.dirname(os.path.abspath(__file__)),".history")
+        history = FileHistory(history_location)
 
         print(frontend_message.get_welcome_message())
         while True:
@@ -33,7 +32,15 @@ class Cmd:
                     text = prompt(self.prompt, lexer=PythonLexer,
                                   completer=self.completer,
                                   style=DocumentStyle, history=history)
-                    print(self.processor.forward(text))
+                    res = self.processor.forward(text)
+
+                    if(isinstance(res, str)):
+                        res = res.strip()
+                        if(len(res)>0):
+                            print(res)
+                    elif res is not None:
+                        print(res)
+
 
             except KeyboardInterrupt as ex:
                 print("^C")

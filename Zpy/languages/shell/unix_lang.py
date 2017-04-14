@@ -3,7 +3,7 @@ from Zpy.Utils import get_linux_commands
 from Zpy.storage.SuffixTree import SuffixTree
 from Zpy.languages.Language import Language
 from Zpy.languages.shell.unix_completer import UnixCompleter
-
+import json
 
 class WrondDstDirException(Exception): pass
 
@@ -140,11 +140,14 @@ class UnixLang(Language):
         Helping function for evaluation
         """
 
-        if return_result_anyway or (processor is not None and processor.info['pipes_count'] > 1):
+        if processor is not None and processor.info['pipes_count']  == 1:
+            subprocess.check_call([line], shell=True, env=env)
+            return ""
+        elif return_result_anyway or (processor is not None and processor.info['pipes_count'] > 1):
             proc = self.create_proc(line ,env, stdin=subprocess.PIPE,stdout=subprocess.PIPE)
         else:
             subprocess.check_call([line], shell=True,env=env)
-            return
+            return ""
 
 
 
@@ -172,8 +175,21 @@ class UnixLang(Language):
         ['xyz', 'cde', '123']
         >>> os.path.isdir(UnixLang().evaluate("pwd").strip())
         True
+
         """
         line = self.prepare(line)
+        if isinstance(stdin, list) or isinstance(stdin, tuple):
+            #Try convert each item to str
+            try:
+                tmp_stdin = []
+                for item in stdin:
+                    tmp_stdin.append(str(item))
+                stdin = "\n".join(tmp_stdin)
+            except:
+                stdin = json.dumps(stdin)
+
+        elif not isinstance(stdin, str):
+            stdin = json.dumps(stdin)
 
         env = os.environ.copy()
         env['z'] = stdin
@@ -193,6 +209,7 @@ class UnixLang(Language):
                 else:
                     self.set_directory(dir)
             return ""
+
 
         return self.eval(line, processor, env, stdin, return_result_anyway=return_result_anyway)
 
