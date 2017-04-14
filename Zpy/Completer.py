@@ -21,12 +21,12 @@ class Completer(Completer):
             return ''
         line = document.current_line
 
-        #Complete onl last pipeline
+        #Complete only last pipeline
         line = self.pipeline.split(line=line)[-1]
 
-
         lang = self.lang_analyzer.get_lang_for_complete_line(line)
-        #print('lan',lang)
+
+
         return lang.complete(line)
 
 # class Completer(object):

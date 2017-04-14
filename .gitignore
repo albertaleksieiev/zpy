@@ -99,3 +99,8 @@ ENV/
 .DS_STORE
 
 .python_history
+Zpy/.history
+
+*.pkg
+
+t.xt

@@ -33,9 +33,23 @@ class zpy(z_base):
         Utils
     """
     def as_table(self, line):
+        """
+        :param line: Convert data which splited by '\n' or array into beautiful table splited by '\n'
+        :return: beautified table
+        >>> len(zpy(processor=None).as_table([[0, 1, 4, 9, 16], [25, 36, 49, 64, 81]])) > 0
+        True
+        """
         from terminaltables import AsciiTable, SingleTable
-        arr = line.split('\n')
-        prepared_arr = [' '.join(x.split()).split(' ') for x in arr]
+        if isinstance(line, str):
+            arr = line.split('\n')
+            prepared_arr = [' '.join(x.split()).split(' ') for x in arr]
+        else: #Iterable
+            prepared_arr = line
+
+
+
+        ##Todo refactor
+        #prepared_arr = [' '.join(x.split() if isinstance(x,str) else str(x)).split(' ') for x in arr]
         return SingleTable(prepared_arr).table
 
     """

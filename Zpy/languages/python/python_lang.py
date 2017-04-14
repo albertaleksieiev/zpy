@@ -102,6 +102,7 @@ class PythonLanguage(Language):
         ''
         >>> pl.evaluate("len(str(uuid.uuid4()))")
         36
+
         """
         if len(line) > 0 and line[0] == "~":
             self.exec_command.append(line[1:])
@@ -120,7 +121,7 @@ class PythonLanguage(Language):
         # Set modules
         for name, module in self.get_module(processor).items():
             locals()[name.split(".")[-1]] = module
-
+        locals()["zpy"] = self.zpy
         try:
             res = eval(line)
             is_func = inspect.isfunction(res) or inspect.ismethod(res)

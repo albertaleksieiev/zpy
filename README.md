@@ -19,6 +19,9 @@ Berlin has temperature 4 °F
 San Francisco has temperature 24 °F
 ```
 
+### Demo
+![Zpy Demo](https://github.com/albertaleksieiev/zpy/raw/content/img/zpy_demo.gif)
+Combine Python and JavaScript together in the terminal is really easy! Just look at [Full Video](https://asciinema.org/a/3fam2wma6o16onjx01xdod0fe) with additional features!
 
 ### Pipeline
 Zpy ideology says - pipeline make work in terminal great again! Pipeline play the major role in zpy. If you want to use every opportunity of Zpy you should know a few things about the pipeline. Input command will be splited by pipeline character, each of token will be evaluated by shell,python or js interpreter, and tokens will be chained into 1 chain. Zpy pass previous token evaluation result as stdin to next token and you have access to z-variable if token not expects to stdin. So Zpy pipes work like standard unix pipes.
