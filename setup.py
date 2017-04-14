@@ -21,6 +21,7 @@ setup(
   packages = find_packages(),
   version = '0.1.1.8',
 
+
   description = 'Command line shell with script languages, like python',
   long_description=long_description,
   author = 'Albert Aleksieiev',
