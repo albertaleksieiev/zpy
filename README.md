@@ -18,9 +18,11 @@ London has temperature -7 °F
 Berlin has temperature 4 °F
 San Francisco has temperature 24 °F
 ```
+
 ### Demo
 ![Zpy Demo](https://github.com/albertaleksieiev/zpy/raw/content/img/zpy_demo.gif)
 Combine Python and JavaScript together in the terminal is really easy! Just look at [Full Video](https://asciinema.org/a/3fam2wma6o16onjx01xdod0fe) with additional features!
+
 ### Pipeline
 Zpy ideology says - pipeline make work in terminal great again! Pipeline play the major role in zpy. If you want to use every opportunity of Zpy you should know a few things about the pipeline. Input command will be splited by pipeline character, each of token will be evaluated by shell,python or js interpreter, and tokens will be chained into 1 chain. Zpy pass previous token evaluation result as stdin to next token and you have access to z-variable if token not expects to stdin. So Zpy pipes work like standard unix pipes.
 
@@ -28,7 +30,7 @@ Zpy ideology says - pipeline make work in terminal great again! Pipeline play th
 If you want use Zpy you should a few rules.
  * Command will be evaluated by **unix system** if you add **`** symbol in begin of the token, or you command begin with [142 linux commands](http://www.mediacollege.com/linux/command/linux-command.html)
  * Command will be evaluated by [**javascript**](#javascript) language if you add `j` at begining of token. 
- * Command will be evaluated by [**Chain Pool**](#chain-pool) if you add specific characters like `for` in the begin the line.
+ * Command will be evaluated by [**Chain Pool**](#chain-pool) if you add specific characters `[%function%]` at begining of token, where %function% is specific chain pool function, like `for` function.
  * Command will be evaluated by [**python**](#python) command **in any other case**(by default just evaluate python code - python is default language)
  
 #### From Python to Unix 
