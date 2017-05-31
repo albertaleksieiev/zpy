@@ -20,6 +20,15 @@ class Cmd:
 
         self.processor = Processor()
         self.completer = Completer()
+
+    def process_file(self, location):
+        if not os.path.exists(location):
+            return "File not exist!"
+
+        with open(location) as f:
+            content = f.readlines()
+
+        return self.processor.forward(" ".join(list(filter(lambda x: not x.startswith("#"), content))) )
     def cmdloop(self):
 
         history_location = os.path.join(os.path.dirname(os.path.abspath(__file__)),".history")

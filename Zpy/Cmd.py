@@ -60,5 +60,6 @@ class Cmd(cmd.Cmd):
     def complete(self, text, index):
         return self.completer.complete(text, index)
 
+
 if __name__ == "__main__":
     Cmd().complete("ls",0)

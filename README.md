@@ -167,7 +167,7 @@ Zpy have some cool things, like modules! Modules is your own script which will b
 ```
 zpy is just python class, which can storage some information (like scripts).
 zpy Methods : 
-- get_scripts() - return list of scripts
+-   - return list of scripts
 - add_script(name) - Currying `add_new_script` method, returns `add_new_script(name=name)` 
 - add_new_script(name, script) - create new script
 - remove_script(name) - remove script

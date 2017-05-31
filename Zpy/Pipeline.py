@@ -49,5 +49,6 @@ class Pipeline:
             splits.append(line[begin_index:match['start']])
             begin_index = match['end']
         if(len(pipeline_matches) > 0):
-            splits.append(line[begin_index:])
-        return splits
+            splits.append(line[begin_index:].strip())
+
+        return [s.strip() for s in splits]
